@@ -1,15 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Максим Беседа
-  Date: 25.08.2016
-  Time: 14:39
-  To change this template use File | Settings | File Templates.
---%>
+
 <!DOCTYPE html>
 <!-- saved from url=(0041)http://bootstrap-3.ru/examples/jumbotron/ -->
-<html lang="en">
+<html lang="ru">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -58,7 +52,7 @@
                 <div class="form-group">
                     <input type="password" placeholder="Password" class="form-control" name="j_password">
                 </div>
-                <button type="submit" class="btn btn-success">Sign in</button>
+                <button type="submit" class="btn btn-success">Вход</button>
                 <c:if test="${param.error ne null}">
 
                 </c:if>

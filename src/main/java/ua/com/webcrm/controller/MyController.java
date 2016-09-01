@@ -60,4 +60,39 @@ public class MyController {
         model.addAttribute("login", user.getUsername());
         return "unauthorized";
     }
+
+    @RequestMapping("/analytics")
+    public String analytics(){
+        return "analytics";
+    }
+
+    @RequestMapping("/contacts")
+    public String contacts(){
+        return "contacts";
+    }
+
+    @RequestMapping("/contracts")
+    public String contracts(){
+        return "contracts";
+    }
+
+    @RequestMapping("/documents")
+    public String documents(){
+        return "documents";
+    }
+
+    @RequestMapping("/objects")
+    public String objects(){
+        return "objects";
+    }
+
+    @RequestMapping("/reports")
+    public String reports(){
+        return "reports";
+    }
+
+    @RequestMapping("/tasks")
+    public String tasks(){
+        return "tasks";
+    }
 }

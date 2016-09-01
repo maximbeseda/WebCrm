@@ -12,7 +12,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>WEB CRM</title>
+    <title>Contracts</title>
 
     <!-- Bootstrap core CSS -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
@@ -77,10 +77,10 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href=${index}>Главная <span class="sr-only">(current)</span></a></li>
+            <li><a href=${index}>Главная</a></li>
             <li><a href=${tasks}>Задачи</a></li>
             <li><a href=${contacts}>Контакты</a></li>
-            <li><a href=${contracts}>Договора</a></li>
+            <li class="active"><a href=${contracts}>Договора<span class="sr-only">(current)</span></a></li>
           </ul>
           <ul class="nav nav-sidebar">
             <li><a href=${objects}>Объекты</a></li>
@@ -90,7 +90,7 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Главная</h1>
+          <h1 class="page-header">Договора</h1>
         </div>
       </div>
     </div>

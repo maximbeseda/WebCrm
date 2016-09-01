@@ -12,7 +12,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>WEB CRM</title>
+    <title>Analytics</title>
 
     <!-- Bootstrap core CSS -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
@@ -29,8 +29,8 @@
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
 
@@ -77,7 +77,7 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href=${index}>Главная <span class="sr-only">(current)</span></a></li>
+            <li><a href=${index}>Главная</a></li>
             <li><a href=${tasks}>Задачи</a></li>
             <li><a href=${contacts}>Контакты</a></li>
             <li><a href=${contracts}>Договора</a></li>
@@ -86,14 +86,14 @@
             <li><a href=${objects}>Объекты</a></li>
             <li><a href=${documents}>Документы</a></li>
             <li><a href=${reports}>Отчеты</a></li>
-            <li><a href=${analytics}>Аналитика</a></li>
+            <li class="active"><a href=${analytics}>Аналитика<span class="sr-only">(current)</span></a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Главная</h1>
+          <h1 class="page-header">Аналитика</h1>
+          </div>
         </div>
       </div>
-    </div>
 
 
     <!-- Bootstrap core JavaScript
