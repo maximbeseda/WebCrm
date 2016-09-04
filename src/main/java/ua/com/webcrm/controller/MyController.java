@@ -20,17 +20,21 @@ public class MyController {
     @Autowired
     private ManagerService managerService;
 
-    @RequestMapping(value = "/")
-    public String index(Model model){
+    public Manager getUser (){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
 
-        Manager dbUser = managerService.getByLogin(login);
+        return managerService.getByLogin(login);
+    }
 
-        model.addAttribute("login", login);
-        model.addAttribute("roles", user.getAuthorities());
+    @RequestMapping(value = "/")
+    public String index(Model model){
+        Manager dbUser = getUser();
+
+        model.addAttribute("fullName", dbUser.getFullName());
+        model.addAttribute("login", dbUser.getLogin());
+        model.addAttribute("roles", dbUser.getRole());
         model.addAttribute("email", dbUser.getEmail());
-        model.addAttribute("phone", dbUser.getPhone());
 
         return "index";
     }
@@ -49,9 +53,12 @@ public class MyController {
         return "redirect:/";
     }
 
-    @RequestMapping("/admin")
-    public String admin(){
-        return "admin";
+    @RequestMapping("/users")
+    public String admin(Model model){
+        Manager dbUser = getUser();
+
+        model.addAttribute("fullName", dbUser.getFullName());
+        return "users";
     }
 
     @RequestMapping("/unauthorized")
@@ -62,37 +69,58 @@ public class MyController {
     }
 
     @RequestMapping("/analytics")
-    public String analytics(){
+    public String analytics(Model model){
+        Manager dbUser = getUser();
+
+        model.addAttribute("fullName", dbUser.getFullName());
         return "analytics";
     }
 
     @RequestMapping("/contacts")
-    public String contacts(){
+    public String contacts(Model model){
+        Manager dbUser = getUser();
+
+        model.addAttribute("fullName", dbUser.getFullName());
         return "contacts";
     }
 
     @RequestMapping("/contracts")
-    public String contracts(){
+    public String contracts(Model model){
+        Manager dbUser = getUser();
+
+        model.addAttribute("fullName", dbUser.getFullName());
         return "contracts";
     }
 
     @RequestMapping("/documents")
-    public String documents(){
+    public String documents(Model model){
+        Manager dbUser = getUser();
+
+        model.addAttribute("fullName", dbUser.getFullName());
         return "documents";
     }
 
     @RequestMapping("/objects")
-    public String objects(){
+    public String objects(Model model){
+        Manager dbUser = getUser();
+
+        model.addAttribute("fullName", dbUser.getFullName());
         return "objects";
     }
 
     @RequestMapping("/reports")
-    public String reports(){
+    public String reports(Model model){
+        Manager dbUser = getUser();
+
+        model.addAttribute("fullName", dbUser.getFullName());
         return "reports";
     }
 
     @RequestMapping("/tasks")
-    public String tasks(){
+    public String tasks(Model model){
+        Manager dbUser = getUser();
+
+        model.addAttribute("fullName", dbUser.getFullName());
         return "tasks";
     }
 }

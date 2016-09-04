@@ -22,7 +22,8 @@ public class Application {
         return new CommandLineRunner() {
             @Override
             public void run(String... strings) throws Exception {
-                managerService.addManager(new Manager("admin", "0000", ManagerRole.ADMIN, "admin", "7110eda4d09e062aa5e4a390b0a572ac0d2c0220"));
+                managerService.addManager(new Manager("Максим Беседа", "0000", ManagerRole.ADMIN, "admin", "7110eda4d09e062aa5e4a390b0a572ac0d2c0220"));
+                managerService.addManager(new Manager("Максим Беседа", "1111", ManagerRole.SALES_MANAGER, "manager", "7110eda4d09e062aa5e4a390b0a572ac0d2c0220"));
             }
         };
     }

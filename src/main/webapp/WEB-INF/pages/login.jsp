@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <!DOCTYPE html>
 <!-- saved from url=(0041)http://bootstrap-3.ru/examples/jumbotron/ -->
@@ -31,7 +32,7 @@
 
 <body>
 
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -44,7 +45,8 @@
         </div>
         <div class="navbar-collapse collapse">
             <!--**************************************************************************************-->
-            <c:url value="/j_spring_security_check" var="loginUrl"/>
+            <spring:url value="/j_spring_security_check" var="loginUrl"/>
+            <c:if test="${param.error == null}">
             <form class="navbar-form navbar-right" role="form" action="${loginUrl}" method="POST">
                 <div class="form-group">
                     <input type="text" placeholder="Login" class="form-control" name="j_login">
@@ -53,8 +55,16 @@
                     <input type="password" placeholder="Password" class="form-control" name="j_password">
                 </div>
                 <button type="submit" class="btn btn-success">Вход</button>
+                </c:if>
                 <c:if test="${param.error ne null}">
-
+                <form class="navbar-form navbar-right has-error" role="form" action="${loginUrl}" method="POST">
+                    <div class="form-group">
+                        <input type="text" placeholder="Login" class="form-control" name="j_login">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" class="form-control" name="j_password">
+                    </div>
+                    <button type="submit" class="btn btn-success">Вход</button>
                 </c:if>
             </form>
             <!--***************************************************************************************-->
@@ -77,7 +87,9 @@
             <div class="container">
                 <div class="carousel-caption">
                     <h1>Example headline.</h1>
-                    <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
+                    <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous"
+                        Glyphicon buttons on the left and right might not load/display properly due to web browser
+                        security rules.</p>
                     <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
                 </div>
             </div>
@@ -87,7 +99,8 @@
             <div class="container">
                 <div class="carousel-caption">
                     <h1>Another example headline.</h1>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida
+                        at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
                     <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
                 </div>
             </div>
@@ -97,14 +110,17 @@
             <div class="container">
                 <div class="carousel-caption">
                     <h1>One more for good measure.</h1>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida
+                        at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
                     <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
                 </div>
             </div>
         </div>
     </div>
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span
+            class="glyphicon glyphicon-chevron-left"></span></a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next"><span
+            class="glyphicon glyphicon-chevron-right"></span></a>
 </div><!-- /.carousel -->
 
 
