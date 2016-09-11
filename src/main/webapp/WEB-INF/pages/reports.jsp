@@ -10,34 +10,34 @@
 
     <jsp:body>
 
-        <c:url value="/" var="index"/>
-        <c:url value="/tasks" var="tasks"/>
-        <c:url value="/contacts" var="contacts"/>
-        <c:url value="/contracts" var="contracts"/>
-        <c:url value="/objects" var="objects"/>
-        <c:url value="/documents" var="documents"/>
-        <c:url value="/reports" var="reports"/>
-        <c:url value="/analytics" var="analytics"/>
-        <c:url value="/users" var="users"/>
+        <spring:url value="/" var="index"/>
+        <spring:url value="/tasks" var="tasks"/>
+        <spring:url value="/contacts" var="contacts"/>
+        <spring:url value="/contracts" var="contracts"/>
+        <spring:url value="/objects" var="objects"/>
+        <spring:url value="/documents" var="documents"/>
+        <spring:url value="/reports" var="reports"/>
+        <spring:url value="/analytics" var="analytics"/>
+        <spring:url value="/users" var="users"/>
 
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
                     <ul class="nav nav-sidebar">
-                        <li><a href=${index}>Главная</a></li>
-                        <li><a href=${tasks}>Задачи</a></li>
-                        <li><a href=${contacts}>Контакты</a></li>
-                        <li><a href=${contracts}>Договора</a></li>
+                        <li><a href=${index}><span class="glyphicon glyphicon-home"></span> Главная</a></li>
+                        <li><a href=${tasks}><span class="glyphicon glyphicon-tasks"></span> Задачи</a></li>
+                        <li><a href=${contacts}><span class="glyphicon glyphicon-book"></span> Контакты</a></li>
+                        <li><a href=${contracts}><span class="glyphicon glyphicon-list-alt"></span> Договора</a></li>
                     </ul>
                     <ul class="nav nav-sidebar">
-                        <li><a href=${objects}>Объекты</a></li>
-                        <li><a href=${documents}>Документы</a></li>
-                        <li class="active"><a href=${reports}>Отчеты<span class="sr-only">(current)</span></a></li>
-                        <li><a href=${analytics}>Аналитика</a></li>
+                        <li><a href=${objects}><span class="glyphicon glyphicon-object-align-bottom"></span> Объекты</a></li>
+                        <li><a href=${documents}><span class="glyphicon glyphicon-duplicate"></span> Документы</a></li>
+                        <li class="active"><a href=${reports}><span class="glyphicon glyphicon-briefcase"></span> Отчеты<span class="sr-only">(current)</span></a></li>
+                        <li><a href=${analytics}><span class="glyphicon glyphicon-stats"></span> Аналитика</a></li>
                     </ul>
                     <security:authorize access="hasAnyRole('ROLE_ADMIN')">
                     <ul class="nav nav-sidebar">
-                        <li><a href=${users}>Пользователи</a></li>
+                        <li><a href=${users}><span class="glyphicon glyphicon-user"></span> Пользователи</a></li>
                     </ul>
                     </security:authorize>
                 </div>

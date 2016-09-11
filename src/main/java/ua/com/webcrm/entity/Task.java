@@ -3,6 +3,7 @@ package ua.com.webcrm.entity;
 import ua.com.webcrm.entity.enums.StatusTask;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by Максим Беседа on 24.08.2016.
@@ -18,7 +19,7 @@ public class Task {
     @Column(nullable = false)
     private String name;
     @Column(name = "dead_line", nullable = false)
-    private String deadLine;
+    private Date deadLine;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private StatusTask status;
@@ -43,14 +44,14 @@ public class Task {
 
     }
 
-    public Task(String name, String deadLine, StatusTask status, Manager manager) {
+    public Task(String name, Date deadLine, StatusTask status, Manager manager) {
         this.name = name;
         this.deadLine = deadLine;
         this.status = status;
         this.manager = manager;
     }
 
-    public Task(String name, String deadLine, StatusTask status, String info, Client client, Manager manager,
+    public Task(String name, Date deadLine, StatusTask status, String info, Client client, Manager manager,
                 Contract contract, Document document) {
         this.name = name;
         this.deadLine = deadLine;
@@ -78,11 +79,11 @@ public class Task {
         this.name = name;
     }
 
-    public String getDeadLine() {
+    public Date getDeadLine() {
         return deadLine;
     }
 
-    public void setDeadLine(String deadLine) {
+    public void setDeadLine(Date deadLine) {
         this.deadLine = deadLine;
     }
 

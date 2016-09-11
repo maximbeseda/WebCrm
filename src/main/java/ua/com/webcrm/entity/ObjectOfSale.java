@@ -13,6 +13,9 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "object_type")
 public class ObjectOfSale extends AbstractObjectOfSale {
 
+    @Column
+    private String type;
+
     @OneToOne
     @JoinColumn(name = "manager_id")
     private Manager manager;
@@ -23,15 +26,27 @@ public class ObjectOfSale extends AbstractObjectOfSale {
     public ObjectOfSale() {
     }
 
-    public ObjectOfSale(String houseNumber, String level, Double totalSpace, Double priceUsd, StatusObj status) {
+    public ObjectOfSale(String houseNumber, String level, Double totalSpace, Double priceUsd, StatusObj status, String type) {
         super(houseNumber, level, totalSpace, priceUsd, status);
+        this.type = type;
+    }
+
+    public ObjectOfSale(String houseNumber, String level, Double totalSpace, Double priceUsd, StatusObj status, Double discount,
+                        String type) {
+        super(houseNumber, level, totalSpace, priceUsd, status, discount);
+        this.type = type;
     }
 
     public ObjectOfSale(String houseNumber, String level, Double totalSpace, Double priceUsd, Double discount,
-                        Double discountPriceUsd, StatusObj status, String info, Manager manager, Contract contract) {
-        super(houseNumber, level, totalSpace, priceUsd, discount, discountPriceUsd, status, info);
+                        StatusObj status, String info, String type, Manager manager, Contract contract) {
+        super(houseNumber, level, totalSpace, priceUsd, discount, status, info);
         this.manager = manager;
         this.contract = contract;
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public Manager getManager() {

@@ -11,6 +11,7 @@ public interface ParkingService {
     Parking addParking(Parking parking);
     void delete(long id);
     Parking getByName(String name);
+    Parking getById(long id);
     Parking editParking(Parking parking);
     List<Parking> getAll();
 }

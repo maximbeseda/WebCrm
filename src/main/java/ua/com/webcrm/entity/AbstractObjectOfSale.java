@@ -14,20 +14,21 @@ public abstract class AbstractObjectOfSale {
     @GeneratedValue
     private long id;
 
-    @Column(name = "house_number", nullable = false)
+    @Column(name = "house_number")
     private String houseNumber;
-    @Column(nullable = false)
+    @Column
     private String level;
-    @Column(name = "total_space", nullable = false)
+    @Column(name = "total_space")
     private Double totalSpace;
-    @Column(name = "price_usd", nullable = false)
+    @Column(name = "price_usd")
     private Double priceUsd;
     private Double discount;
     @Column(name = "discount_price_usd")
     private Double discountPriceUsd;
-    @Column(nullable = false)
+    @Column
     @Enumerated(EnumType.STRING)
     private StatusObj status;
+    @Column
     private String info;
 
     public AbstractObjectOfSale() {
@@ -41,14 +42,25 @@ public abstract class AbstractObjectOfSale {
         this.status = status;
     }
 
+    public AbstractObjectOfSale(String houseNumber, String level, Double totalSpace, Double priceUsd, StatusObj status,
+                                Double discount) {
+        this.houseNumber = houseNumber;
+        this.level = level;
+        this.totalSpace = totalSpace;
+        this.priceUsd = priceUsd;
+        this.status = status;
+        this.discount = discount;
+        this.discountPriceUsd = discountPrice(priceUsd, discount);
+    }
+
     public AbstractObjectOfSale(String houseNumber, String level, Double totalSpace, Double priceUsd, Double discount,
-                                Double discountPriceUsd, StatusObj status, String info) {
+                                StatusObj status, String info) {
         this.houseNumber = houseNumber;
         this.level = level;
         this.totalSpace = totalSpace;
         this.priceUsd = priceUsd;
         this.discount = discount;
-        this.discountPriceUsd = discountPriceUsd;
+        this.discountPriceUsd = discountPrice(priceUsd, discount);
         this.status = status;
         this.info = info;
     }
@@ -123,5 +135,14 @@ public abstract class AbstractObjectOfSale {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public Double discountPrice(Double priceUsd, Double discount){
+        if (discount > 0 && discount <= 100) {
+            Double discountPrice = priceUsd * (100 - discount) / 100;
+            return Math.rint(100 * discountPrice) / 100;
+        } else {
+            return priceUsd;
+        }
     }
 }

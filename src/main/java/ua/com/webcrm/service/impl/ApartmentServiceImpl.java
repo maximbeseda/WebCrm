@@ -48,4 +48,10 @@ public class ApartmentServiceImpl implements ApartmentService {
     public List<Apartment> getAll() {
         return apartmentRepository.findAll();
     }
+
+    @Override
+    @Transactional
+    public Apartment getById(long id) {
+        return apartmentRepository.findOne(id);
+    }
 }

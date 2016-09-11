@@ -39,6 +39,12 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     @Transactional
+    public Client getById(long id) {
+        return clientRepository.findOne(id);
+    }
+
+    @Override
+    @Transactional
     public Client editClient(Client client) {
         return clientRepository.save(client);
     }

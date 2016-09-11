@@ -48,4 +48,9 @@ public class ParkingServiceImpl implements ParkingService {
     public List<Parking> getAll() {
         return parkingRepository.findAll();
     }
+
+    @Override
+    public Parking getById(long id) {
+        return parkingRepository.findOne(id);
+    }
 }

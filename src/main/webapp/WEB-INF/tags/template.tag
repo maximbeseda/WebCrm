@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@tag description="Template Site tag" pageEncoding="UTF-8"%>
+<%@tag description="Template Site tag" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
@@ -13,23 +13,34 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
-    <title><jsp:invoke fragment="title"/></title>
+    <title>
+        <jsp:invoke fragment="title"/>
+    </title>
 
 
     <!-- Bootstrap Core CSS -->
     <spring:url value="resources/css/bootstrap.min.css" var="bootstrap"/>
-    <link href="${bootstrap}" rel="stylesheet" />
+    <link href="${bootstrap}" rel="stylesheet"/>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <spring:url value="resources/css/ie10-viewport-bug-workaround.css" var="ie10"/>
     <link href="${ie10}" rel="stylesheet">
     <!-- Custom styles for this template -->
     <spring:url value="resources/css/dashboard.css" var="dash"/>
     <link href="${dash}" rel="stylesheet">
+    <spring:url value="resources/css/style.css" var="style"/>
+    <link href="${style}" rel="stylesheet">
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <spring:url value="resources/js/ie8-responsive-file-warning.js" var="ie8"/>
-    <script src=${ie8}></script><![endif]-->
+    <script src=${ie8}></script>
+    <![endif]-->
     <spring:url value="resources/js/ie-emulation-modes-warning.js" var="ie"/>
     <script src="${ie}"></script>
+    <!--Data Tables CSS-->
+    <spring:url value="resources/css/jquery.dataTables.min.css" var="dataTableJquery"/>
+    <link href="${dataTableJquery}" rel="stylesheet"/>
+    <spring:url value="resources/css/dataTables.bootstrap.min.css" var="dataTableBootstrap"/>
+    <link href="${dataTableBootstrap}" rel="stylesheet"/>
+
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -40,10 +51,11 @@
 
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -52,11 +64,12 @@
             <a class="navbar-brand" href=${index}>WEB CRM</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <c:url value="/logout" var="logoutUrl" />
+            <c:url value="/logout" var="logoutUrl"/>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Почта</a></li>
                 <li class="dropdow">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <c:out value=" ${fullName}" /> <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                            class="glyphicon glyphicon-user"></span> <c:out value=" ${fullName}"/> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="#"><span class="glyphicon glyphicon-user"></span> Профиль</a>
@@ -84,12 +97,20 @@
    ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="resources/js/jquery.maskedinput.js"></script>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="resources/js/bootstrap.min.js"></script>
 <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 <script src="resources/js/holder.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="resources/js/ie10-viewport-bug-workaround.js"></script>
+<!--Data Tables JS-->
+<script src="resources/js/jquery-1.12.3.js"></script>
+<script src="resources/js/jquery.dataTables.min.js"></script>
+<script src="resources/js/dataTables.bootstrap.min.js"></script>
+<!--My JavaScript-->
+<script src="resources/js/my.js"></script>
+
 </body>
 
 </html>

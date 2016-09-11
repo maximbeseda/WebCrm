@@ -4,6 +4,7 @@ import ua.com.webcrm.entity.enums.ContractType;
 import ua.com.webcrm.entity.enums.StatusContract;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ public class Contract {
     private StatusContract status;
 
     private String number;
-    private String date;
+    private Date date;
     private Double amountUSD;
     private Double amountUAH;
     private Double rate;
@@ -60,7 +61,7 @@ public class Contract {
         this.manager = manager;
     }
 
-    public Contract(ContractType contractType, StatusContract status, String number, String date, Double amountUSD,
+    public Contract(ContractType contractType, StatusContract status, String number, Date date, Double amountUSD,
                     Double amountUAH, Double rate, Client client, Manager manager, ObjectOfSale objectOfSale,
                     List<Document> documents, List<Invoice> invoices) {
         this.contractType = contractType;
@@ -109,11 +110,11 @@ public class Contract {
         this.number = number;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

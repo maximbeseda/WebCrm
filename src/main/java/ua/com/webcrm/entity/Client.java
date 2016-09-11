@@ -36,6 +36,14 @@ public class Client extends Contact {
     }
 
     public Client(String fullName, String phone, String email, String address, String passport, String identNumber,
+                  String dateBirth, String partnerFullName, String partnerIdentNumber, Manager manager) {
+        super(fullName, phone, email, address, passport, identNumber, dateBirth);
+        this.partnerFullName = partnerFullName;
+        this.partnerIdentNumber = partnerIdentNumber;
+        this.manager = manager;
+    }
+
+    public Client(String fullName, String phone, String email, String address, String passport, String identNumber,
                   String dateBirth, String partnerFullName, String partnerIdentNumber, Manager manager,
                   List<Contract> contracts, List<Document> documents) {
         super(fullName, phone, email, address, passport, identNumber, dateBirth);

@@ -1,8 +1,11 @@
 package ua.com.webcrm.entity;
 
+import org.springframework.data.annotation.Transient;
 import ua.com.webcrm.entity.enums.StatusObj;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 /**
  * Created by Максим Беседа on 24.08.2016.
@@ -11,20 +14,32 @@ import javax.persistence.*;
 @DiscriminatorValue("apartment")
 public class Apartment extends ObjectOfSale {
 
-    @Column(name = "living_space", nullable = false)
+    @Column(name = "living_space")
     private Double livingSpace;
-    @Column(name = "apartment_number", nullable = false)
+    @Column(name = "apartment_number")
     private String apartmentNumber;
-    @Column(name = "rooms", nullable = false)
+    @Column(name = "rooms")
     private Integer rooms;
+    @Column
     private String name;
+    @Transient
+    private final static String TYPE = "Квартира";
 
     public Apartment() {
     }
 
-    public Apartment(String houseNumber, String level, Double totalSpace, Double priceUsd, StatusObj status,
-                     Double livingSpace, String apartmentNumber, Integer rooms) {
-        super(houseNumber, level, totalSpace, priceUsd, status);
+    public Apartment(String houseNumber, String apartmentNumber, String level, Double totalSpace, Double priceUsd, StatusObj status,
+                     Double livingSpace, Integer rooms) {
+        super(houseNumber, level, totalSpace, priceUsd, status, TYPE);
+        this.livingSpace = livingSpace;
+        this.apartmentNumber = apartmentNumber;
+        this.rooms = rooms;
+        this.name = houseNumber + "/" + apartmentNumber;
+    }
+
+    public Apartment(String houseNumber, String apartmentNumber, String level, Double totalSpace, Double priceUsd, Double discount,
+                     StatusObj status, Double livingSpace, Integer rooms) {
+        super(houseNumber, level, totalSpace, priceUsd, status, discount, TYPE);
         this.livingSpace = livingSpace;
         this.apartmentNumber = apartmentNumber;
         this.rooms = rooms;
@@ -32,9 +47,9 @@ public class Apartment extends ObjectOfSale {
     }
 
     public Apartment(String houseNumber, String level, Double totalSpace, Double priceUsd, Double discount,
-                     Double discountPriceUsd, StatusObj status, String info, Manager manager, Contract contract,
-                     Double livingSpace, String apartmentNumber, Integer rooms) {
-        super(houseNumber, level, totalSpace, priceUsd, discount, discountPriceUsd, status, info, manager, contract);
+                     StatusObj status, String info, Manager manager, Contract contract, Double livingSpace,
+                     String apartmentNumber, Integer rooms) {
+        super(houseNumber, level, totalSpace, priceUsd, discount, status, info, TYPE, manager, contract);
         this.livingSpace = livingSpace;
         this.apartmentNumber = apartmentNumber;
         this.rooms = rooms;
@@ -71,5 +86,9 @@ public class Apartment extends ObjectOfSale {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public static String getTYPE() {
+        return TYPE;
     }
 }
