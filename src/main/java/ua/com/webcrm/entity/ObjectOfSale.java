@@ -3,6 +3,8 @@ package ua.com.webcrm.entity;
 import ua.com.webcrm.entity.enums.StatusObj;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Максим Беседа on 28.08.2016.
@@ -20,8 +22,8 @@ public class ObjectOfSale extends AbstractObjectOfSale {
     @JoinColumn(name = "manager_id")
     private Manager manager;
 
-    @OneToOne(mappedBy="objectOfSale")
-    private Contract contract;
+    @OneToMany(mappedBy="objectOfSale")
+    private List<Contract> contracts = new ArrayList<>();
 
     public ObjectOfSale() {
     }
@@ -41,7 +43,7 @@ public class ObjectOfSale extends AbstractObjectOfSale {
                         StatusObj status, String info, String type, Manager manager, Contract contract) {
         super(houseNumber, level, totalSpace, priceUsd, discount, status, info);
         this.manager = manager;
-        this.contract = contract;
+        this.contracts.add(contract);
         this.type = type;
     }
 
@@ -57,11 +59,11 @@ public class ObjectOfSale extends AbstractObjectOfSale {
         this.manager = manager;
     }
 
-    public Contract getContract() {
-        return contract;
+    public List<Contract> getContracts() {
+        return contracts;
     }
 
-    public void setContract(Contract contract) {
-        this.contract = contract;
+    public void setContracts(List<Contract> contracts) {
+        this.contracts = contracts;
     }
 }

@@ -19,12 +19,12 @@ public abstract class AbstractObjectOfSale {
     @Column
     private String level;
     @Column(name = "total_space")
-    private Double totalSpace;
+    private double totalSpace;
     @Column(name = "price_usd")
-    private Double priceUsd;
-    private Double discount;
+    private double priceUsd;
+    private double discount;
     @Column(name = "discount_price_usd")
-    private Double discountPriceUsd;
+    private double discountPriceUsd;
     @Column
     @Enumerated(EnumType.STRING)
     private StatusObj status;
@@ -34,7 +34,7 @@ public abstract class AbstractObjectOfSale {
     public AbstractObjectOfSale() {
     }
 
-    public AbstractObjectOfSale(String houseNumber, String level, Double totalSpace, Double priceUsd, StatusObj status) {
+    public AbstractObjectOfSale(String houseNumber, String level, double totalSpace, double priceUsd, StatusObj status) {
         this.houseNumber = houseNumber;
         this.level = level;
         this.totalSpace = totalSpace;
@@ -42,7 +42,7 @@ public abstract class AbstractObjectOfSale {
         this.status = status;
     }
 
-    public AbstractObjectOfSale(String houseNumber, String level, Double totalSpace, Double priceUsd, StatusObj status,
+    public AbstractObjectOfSale(String houseNumber, String level, double totalSpace, double priceUsd, StatusObj status,
                                 Double discount) {
         this.houseNumber = houseNumber;
         this.level = level;
@@ -53,7 +53,7 @@ public abstract class AbstractObjectOfSale {
         this.discountPriceUsd = discountPrice(priceUsd, discount);
     }
 
-    public AbstractObjectOfSale(String houseNumber, String level, Double totalSpace, Double priceUsd, Double discount,
+    public AbstractObjectOfSale(String houseNumber, String level, double totalSpace, double priceUsd, double discount,
                                 StatusObj status, String info) {
         this.houseNumber = houseNumber;
         this.level = level;
@@ -89,35 +89,35 @@ public abstract class AbstractObjectOfSale {
         this.level = level;
     }
 
-    public Double getTotalSpace() {
+    public double getTotalSpace() {
         return totalSpace;
     }
 
-    public void setTotalSpace(Double totalSpace) {
+    public void setTotalSpace(double totalSpace) {
         this.totalSpace = totalSpace;
     }
 
-    public Double getPriceUsd() {
+    public double getPriceUsd() {
         return priceUsd;
     }
 
-    public void setPriceUsd(Double priceUsd) {
+    public void setPriceUsd(double priceUsd) {
         this.priceUsd = priceUsd;
     }
 
-    public Double getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Double discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
     }
 
-    public Double getDiscountPriceUsd() {
+    public double getDiscountPriceUsd() {
         return discountPriceUsd;
     }
 
-    public void setDiscountPriceUsd(Double discountPriceUsd) {
+    public void setDiscountPriceUsd(double discountPriceUsd) {
         this.discountPriceUsd = discountPriceUsd;
     }
 
@@ -137,9 +137,9 @@ public abstract class AbstractObjectOfSale {
         this.info = info;
     }
 
-    public Double discountPrice(Double priceUsd, Double discount){
+    public double discountPrice(double priceUsd, double discount){
         if (discount > 0 && discount <= 100) {
-            Double discountPrice = priceUsd * (100 - discount) / 100;
+            double discountPrice = priceUsd * (100 - discount) / 100;
             return Math.rint(100 * discountPrice) / 100;
         } else {
             return priceUsd;

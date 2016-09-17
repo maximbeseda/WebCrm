@@ -20,32 +20,149 @@
         <spring:url value="/analytics" var="analytics"/>
         <spring:url value="/users" var="users"/>
 
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-3 col-md-2 sidebar">
-                    <ul class="nav nav-sidebar">
-                        <li><a href=${index}><span class="glyphicon glyphicon-home"></span> Главная</a></li>
-                        <li class="active"><a href=${tasks}><span class="glyphicon glyphicon-tasks"></span> Задачи<span class="sr-only">(current)</span></a></li>
-                        <li><a href=${contacts}><span class="glyphicon glyphicon-book"></span> Контакты</a></li>
-                        <li><a href=${contracts}><span class="glyphicon glyphicon-list-alt"></span> Договора</a></li>
-                    </ul>
-                    <ul class="nav nav-sidebar">
-                        <li><a href=${objects}><span class="glyphicon glyphicon-object-align-bottom"></span> Объекты</a></li>
-                        <li><a href=${documents}><span class="glyphicon glyphicon-duplicate"></span> Документы</a></li>
-                        <li><a href=${reports}><span class="glyphicon glyphicon-briefcase"></span> Отчеты</a></li>
-                        <li><a href=${analytics}><span class="glyphicon glyphicon-stats"></span> Аналитика</a></li>
-                    </ul>
-                    <security:authorize access="hasAnyRole('ROLE_ADMIN')">
-                    <ul class="nav nav-sidebar">
-                        <li><a href=${users}><span class="glyphicon glyphicon-user"></span> Пользователи</a></li>
-                    </ul>
-                    </security:authorize>
+        <div class="col-md-3 left_col menu_fixed">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="${index}" class="site_title"><i class="fa fa-paw"></i> <span>WEB CRM</span></a>
                 </div>
-                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h1 class="page-header">Задачи</h1>
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div class="profile">
+                    <div class="profile_info">
+                        <h2><c:out value=" ${fullName}"/></h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+
+                <br/>
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <br/><br/><br/>
+                        <ul class="nav side-menu">
+                            <li><a href=${index}><span class="glyphicon glyphicon-home"></span> Главная</a></li>
+                            <li class="active"><a href=${tasks}><span class="glyphicon glyphicon-tasks"></span>
+                                Задачи<span class="sr-only">(current)</span></a></li>
+                            <li><a href=${contacts}><span class="glyphicon glyphicon-book"></span> Контакты</a></li>
+                            <li><a href=${contracts}><span class="glyphicon glyphicon-list-alt"></span> Договора</a>
+                            </li>
+                        </ul>
+                        <ul class="nav side-menu">
+                            <li><a href=${objects}><span class="glyphicon glyphicon-object-align-bottom"></span> Объекты</a>
+                            </li>
+                            <li><a href=${documents}><span class="glyphicon glyphicon-duplicate"></span> Документы</a>
+                            </li>
+                            <li><a href=${reports}><span class="glyphicon glyphicon-briefcase"></span> Отчеты</a></li>
+                            <security:authorize access="hasAnyRole('ROLE_ADMIN')">
+                                <ul class="nav side-menu">
+                                    <li><a href=${users}><span class="glyphicon glyphicon-user"></span> Пользователи</a>
+                                    </li>
+                                </ul>
+                            </security:authorize>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /sidebar menu -->
+            </div>
+        </div>
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3>Задачи</h3>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Список задач</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+
+                                <!--Button Group-->
+                                <div class="panel">
+                                    <div class="btn-toolbar">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                                    data-target="#modal-create">Новая задача
+                                            </button>
+                                        </div>
+                                        <div class="btn-group">
+                                            <button id="edit_task" type="button" class="btn btn-warning">Изменить
+                                            </button>
+                                        </div>
+                                        <div class="btn-group">
+                                            <button id="delete_task" type="button" class="btn btn-danger">Удалить
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--Data Table-->
+                                <table id="datatable" class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>***</th>
+                                        <th>***</th>
+                                        <th>***</th>
+                                        <th>***</th>
+                                        <th>***</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tfoot>
+                                    <tr>
+                                        <th>***</th>
+                                        <th>***</th>
+                                        <th>***</th>
+                                        <th>***</th>
+                                        <th>***</th>
+                                    </tr>
+                                    </tfoot>
+
+                                    <tbody>
+                                    <c:forEach items="${allTasks}" var="task">
+                                        <tr data-value="${contract.id}">
+                                            <td>${task.aaa}</td>
+                                            <td>${task.aaa}</td>
+                                            <td>${task.aaa}</td>
+                                            <td>${task.aaa}</td>
+                                            <td>${task.aaa}</td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                                <!--Data Table-->
+
+                                <!--Modal-Create-->
+
+
+                                <!--Modal-Create-->
+                                <form style="display: none" action="/task_edit" method="POST" id="formidupdate">
+                                    <input type="hidden" id="toUpdate" name="toUpdate" value=""/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- /page content -->
 
     </jsp:body>
 

@@ -11,5 +11,6 @@ public interface ContractService {
     Contract addContract(Contract contract);
     void delete(long id);
     Contract editContract(Contract contract);
+    Contract getById(long id);
     List<Contract> getAll();
 }

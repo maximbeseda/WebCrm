@@ -28,9 +28,9 @@ public class Contract {
 
     private String number;
     private Date date;
-    private Double amountUSD;
-    private Double amountUAH;
-    private Double rate;
+    private double amountUSD;
+    private double amountUAH;
+    private double rate;
 
 
     @ManyToOne
@@ -41,7 +41,7 @@ public class Contract {
     @JoinColumn(name = "manager_id")
     private Manager manager;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "objectOfSale_id")
     private ObjectOfSale objectOfSale;
 
@@ -54,22 +54,37 @@ public class Contract {
     public Contract() {
     }
 
-    public Contract(ContractType contractType, StatusContract status, Client client, Manager manager) {
+    public Contract(ContractType contractType, StatusContract status, Client client, Manager manager, ObjectOfSale objectOfSale) {
         this.contractType = contractType;
         this.status = status;
         this.client = client;
         this.manager = manager;
+        this.objectOfSale = objectOfSale;
     }
 
-    public Contract(ContractType contractType, StatusContract status, String number, Date date, Double amountUSD,
-                    Double amountUAH, Double rate, Client client, Manager manager, ObjectOfSale objectOfSale,
+    public Contract(ContractType contractType, StatusContract status, String number, Date date, double amountUSD,
+                    double rate, Client client, Manager manager, ObjectOfSale objectOfSale) {
+        this.contractType = contractType;
+        this.status = status;
+        this.number = number;
+        this.date = date;
+        this.amountUSD = amountUSD;
+        this.amountUAH = getAmountUAH(amountUSD, rate);
+        this.rate = rate;
+        this.client = client;
+        this.manager = manager;
+        this.objectOfSale = objectOfSale;
+    }
+
+    public Contract(ContractType contractType, StatusContract status, String number, Date date, double amountUSD,
+                    double rate, Client client, Manager manager, ObjectOfSale objectOfSale,
                     List<Document> documents, List<Invoice> invoices) {
         this.contractType = contractType;
         this.status = status;
         this.number = number;
         this.date = date;
         this.amountUSD = amountUSD;
-        this.amountUAH = amountUAH;
+        this.amountUAH = getAmountUAH(amountUSD, rate);
         this.rate = rate;
         this.client = client;
         this.manager = manager;
@@ -118,27 +133,27 @@ public class Contract {
         this.date = date;
     }
 
-    public Double getAmountUSD() {
+    public double getAmountUSD() {
         return amountUSD;
     }
 
-    public void setAmountUSD(Double amountUSD) {
+    public void setAmountUSD(double amountUSD) {
         this.amountUSD = amountUSD;
     }
 
-    public Double getAmountUAH() {
+    public double getAmountUAH() {
         return amountUAH;
     }
 
-    public void setAmountUAH(Double amountUAH) {
+    public void setAmountUAH(double amountUAH) {
         this.amountUAH = amountUAH;
     }
 
-    public Double getRate() {
+    public double getRate() {
         return rate;
     }
 
-    public void setRate(Double rate) {
+    public void setRate(double rate) {
         this.rate = rate;
     }
 
@@ -180,5 +195,14 @@ public class Contract {
 
     public void setInvoices(List<Invoice> invoices) {
         this.invoices = invoices;
+    }
+
+    public double getAmountUAH(double amountUSD, double rate){
+        if (amountUSD > 0 && rate > 0) {
+            double amountUAH = amountUSD * rate;
+            return Math.rint(100 * amountUAH) / 100;
+        } else {
+            return 0.0;
+        }
     }
 }

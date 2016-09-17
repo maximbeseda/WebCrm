@@ -5,4 +5,9 @@ package ua.com.webcrm.entity.enums;
  */
 public enum StatusContract {
     SIGNED, PREPARE, APPROVED, CANCELED;
+
+    @Override
+    public String toString() {
+        return name();
+    }
 }

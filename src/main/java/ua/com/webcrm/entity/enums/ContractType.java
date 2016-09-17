@@ -5,4 +5,9 @@ package ua.com.webcrm.entity.enums;
  */
 public enum ContractType {
     BONDS, PRESALE, SALE;
+
+    @Override
+    public String toString() {
+        return name();
+    }
 }

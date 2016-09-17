@@ -44,6 +44,11 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
+    public Manager getById(long id) {
+        return managerRepository.findOne(id);
+    }
+
+    @Override
     @Transactional
     public Manager editManager(Manager manager) {
         return managerRepository.save(manager);

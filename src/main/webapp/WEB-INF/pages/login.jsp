@@ -16,10 +16,10 @@
 
     <title>WEB CRM</title>
 
-    <link rel="stylesheet" href="resources/css/bootstrap.min.css">
+    <link href="resources/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="resources/js/bootstrap.min.js"></script>
+    <script src="resources/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <link href="resources/css/carousel.css" rel="stylesheet">
 
@@ -138,9 +138,9 @@
 <!-- Bootstrap core JavaScript
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="resources/js/jquery.min.js"></script>
-<script src="resources/js/bootstrap.min.js"></script>
-<script src="resources/docs.min.js"></script>
+<script src="resources/vendors/jquery/dist/jquery.min.js"></script>
+<script src="resources/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="resources/js/docs.min.js"></script>
 
 </body>
 </html>

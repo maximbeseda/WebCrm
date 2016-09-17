@@ -46,6 +46,14 @@ public class Manager extends Contact {
     }
 
     public Manager(String fullName, String phone, String email, String address, String passport, String identNumber,
+                   String dateBirth, ManagerRole role, String login, String password) {
+        super(fullName, phone, email, address, passport, identNumber, dateBirth);
+        this.role = role;
+        this.login = login;
+        this.password = password;
+    }
+
+    public Manager(String fullName, String phone, String email, String address, String passport, String identNumber,
                    String dateBirth, ManagerRole role, String login, String password, List<Client> clients,
                    List<Contract> contracts, List<Document> documents, List<Task> tasks) {
         super(fullName, phone, email, address, passport, identNumber, dateBirth);

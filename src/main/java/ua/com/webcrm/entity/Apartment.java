@@ -15,11 +15,11 @@ import javax.persistence.Entity;
 public class Apartment extends ObjectOfSale {
 
     @Column(name = "living_space")
-    private Double livingSpace;
+    private double livingSpace;
     @Column(name = "apartment_number")
     private String apartmentNumber;
     @Column(name = "rooms")
-    private Integer rooms;
+    private int rooms;
     @Column
     private String name;
     @Transient
@@ -28,8 +28,8 @@ public class Apartment extends ObjectOfSale {
     public Apartment() {
     }
 
-    public Apartment(String houseNumber, String apartmentNumber, String level, Double totalSpace, Double priceUsd, StatusObj status,
-                     Double livingSpace, Integer rooms) {
+    public Apartment(String houseNumber, String apartmentNumber, String level, double totalSpace, double priceUsd, StatusObj status,
+                     Double livingSpace, int rooms) {
         super(houseNumber, level, totalSpace, priceUsd, status, TYPE);
         this.livingSpace = livingSpace;
         this.apartmentNumber = apartmentNumber;
@@ -37,8 +37,8 @@ public class Apartment extends ObjectOfSale {
         this.name = houseNumber + "/" + apartmentNumber;
     }
 
-    public Apartment(String houseNumber, String apartmentNumber, String level, Double totalSpace, Double priceUsd, Double discount,
-                     StatusObj status, Double livingSpace, Integer rooms) {
+    public Apartment(String houseNumber, String apartmentNumber, String level, double totalSpace, double priceUsd, double discount,
+                     StatusObj status, double livingSpace, int rooms) {
         super(houseNumber, level, totalSpace, priceUsd, status, discount, TYPE);
         this.livingSpace = livingSpace;
         this.apartmentNumber = apartmentNumber;
@@ -46,9 +46,9 @@ public class Apartment extends ObjectOfSale {
         this.name = houseNumber + "/" + apartmentNumber;
     }
 
-    public Apartment(String houseNumber, String level, Double totalSpace, Double priceUsd, Double discount,
-                     StatusObj status, String info, Manager manager, Contract contract, Double livingSpace,
-                     String apartmentNumber, Integer rooms) {
+    public Apartment(String houseNumber, String level, double totalSpace, double priceUsd, double discount,
+                     StatusObj status, String info, Manager manager, Contract contract, double livingSpace,
+                     String apartmentNumber, int rooms) {
         super(houseNumber, level, totalSpace, priceUsd, discount, status, info, TYPE, manager, contract);
         this.livingSpace = livingSpace;
         this.apartmentNumber = apartmentNumber;
@@ -56,11 +56,11 @@ public class Apartment extends ObjectOfSale {
         this.name = houseNumber + "/" + apartmentNumber;
     }
 
-    public Double getLivingSpace() {
+    public double getLivingSpace() {
         return livingSpace;
     }
 
-    public void setLivingSpace(Double livingSpace) {
+    public void setLivingSpace(double livingSpace) {
         this.livingSpace = livingSpace;
     }
 
@@ -72,11 +72,11 @@ public class Apartment extends ObjectOfSale {
         this.apartmentNumber = apartmentNumber;
     }
 
-    public Integer getRooms() {
+    public int getRooms() {
         return rooms;
     }
 
-    public void setRooms(Integer rooms) {
+    public void setRooms(int rooms) {
         this.rooms = rooms;
     }
 

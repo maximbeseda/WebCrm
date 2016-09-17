@@ -12,6 +12,7 @@ public interface ManagerService {
     void delete(long id);
     Manager getByName(String name);
     Manager getByLogin(String login);
+    Manager getById(long id);
     Manager editManager(Manager manager);
     List<Manager> getAll();
 }

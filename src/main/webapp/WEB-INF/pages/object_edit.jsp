@@ -20,196 +20,276 @@
         <spring:url value="/analytics" var="analytics"/>
         <spring:url value="/users" var="users"/>
 
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-3 col-md-2 sidebar">
-                    <ul class="nav nav-sidebar">
-                        <li><a href=${index}><span class="glyphicon glyphicon-home"></span> Главная</a></li>
-                        <li><a href=${tasks}><span class="glyphicon glyphicon-tasks"></span> Задачи</a></li>
-                        <li><a href=${contacts}><span class="glyphicon glyphicon-book"></span> Контакты</a></li>
-                        <li><a href=${contracts}><span class="glyphicon glyphicon-list-alt"></span> Договора</a></li>
-                    </ul>
-                    <ul class="nav nav-sidebar">
-                        <li class="active"><a href=${objects}><span
-                                class="glyphicon glyphicon-object-align-bottom"></span> Объекты<span class="sr-only">(current)</span></a>
-                        </li>
-                        <li><a href=${documents}><span class="glyphicon glyphicon-duplicate"></span> Документы</a></li>
-                        <li><a href=${reports}><span class="glyphicon glyphicon-briefcase"></span> Отчеты</a></li>
-                        <li><a href=${analytics}><span class="glyphicon glyphicon-stats"></span> Аналитика</a></li>
-                    </ul>
-                    <security:authorize access="hasAnyRole('ROLE_ADMIN')">
-                        <ul class="nav nav-sidebar">
-                            <li><a href=${users}><span class="glyphicon glyphicon-user"></span> Пользователи</a></li>
-                        </ul>
-                    </security:authorize>
+        <div class="col-md-3 left_col menu_fixed">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="${index}" class="site_title"><i class="fa fa-paw"></i> <span>WEB CRM</span></a>
                 </div>
-                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h1 class="page-header">Объекты</h1>
+                <div class="clearfix"></div>
 
-                    <div class="col-lg-12">
-                        <c:if test="${editObject.type eq 'Квартира'}">
-                        <form role="form" enctype="multipart/form-data" class="form-horizontal" action="/apartment/update" method="post">
-                            <input type="hidden" id="id" name="id" value="${id}"/>
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-3" for="houseNumber">Номер дома<span style="color:red;"> *</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="houseNumber" name="houseNumber" value="${editObject.houseNumber}" placeholder="Номер дома" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-3" for="apartmentNumber">Номер квартиры<span style="color:red;"> *</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="apartmentNumber" name="apartmentNumber" value="${editObject.apartmentNumber}" placeholder="Номер квартиры" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-3" for="level">Этаж<span style="color:red;"> *</span></label>
-                                <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="level" name="level" value="${editObject.level}" placeholder="Этаж" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-3" for="totalSpace">Общая площадь, м.кв.<span style="color:red;"> *</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="totalSpace" name="totalSpace" value="${editObject.totalSpace}" placeholder="Общая площадь в формате 0.00" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-3" for="livingSpace">Жилая площадь, м.кв.<span style="color:red;"> *</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="livingSpace" name="livingSpace" value="${editObject.livingSpace}" placeholder="Жилая площадь в формате 0.00" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-3" for="rooms">Количество комнат<span style="color:red;"> *</span></label>
-                                <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="rooms" name="rooms" value="${editObject.rooms}" placeholder="Количество комнат" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-3" for="priceUsd">Стоимость по прайсу, $<span style="color:red;"> *</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="priceUsd" name="priceUsd" value="${editObject.priceUsd}" placeholder="Стоимость в формате 0.00" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-3" for="status">Статус<span style="color:red;"> *</span></label>
-                                <div class="col-sm-9">
-                                    <input list="types" class="form-control" id="status" name="status" value="${editObject.status}" placeholder="Статус" required>
-                                    <datalist id="types">
-                                        <c:forEach items="${statusList}" var="status">
-                                        <option value='${status}'>
-                                            </c:forEach>
-                                    </datalist>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-3" for="discount">Скидка, %</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="discount" name="discount" value="${editObject.discount}" placeholder="Скидка в формате 0.00">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-3" for="discountPriceUsd">Стоимость со скидкой, $</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="discountPriceUsd" name="discountPriceUsd" value="${editObject.discountPriceUsd}" readonly>
-                                </div>
-                            </div>
-
-                            <div class="modal-footer">
-                                <a href="${objects}" role="button" class="btn btn-default">Отмена</a>
-                                <button type="submit" class="btn btn-primary">Сохранить изменения</button>
-                            </div>
-                        </form>
-                        </c:if>
-
-                        <c:if test="${editObject.type eq 'Паркинг'}">
-                            <form role="form" enctype="multipart/form-data" class="form-horizontal" action="/parking/update" method="post">
-                                <input type="hidden" id="idP" name="id" value="${id}"/>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3" for="houseNumberP">Номер дома<span style="color:red;"> *</span></label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="houseNumberP" name="houseNumber" value="${editObject.houseNumber}" placeholder="Номер дома" required>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3" for="parkingNumber">Номер паркинга<span style="color:red;"> *</span></label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="parkingNumber" name="parkingNumber" value="${editObject.parkingNumber}" placeholder="Номер паркинга" required>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3" for="levelP">Этаж<span style="color:red;"> *</span></label>
-                                    <div class="col-sm-9">
-                                        <input type="number" class="form-control" id="levelP" name="level" value="${editObject.level}" placeholder="Этаж" required>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3" for="totalSpaceP">Общая площадь, м.кв.<span style="color:red;"> *</span></label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="totalSpaceP" name="totalSpace" value="${editObject.totalSpace}" placeholder="Общая площадь в формате 0.00" required>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3" for="priceUsdP">Стоимость по прайсу, $<span style="color:red;"> *</span></label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="priceUsdP" name="priceUsd" value="${editObject.priceUsd}" placeholder="Стоимость в формате 0.00" required>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3" for="statusP">Статус<span style="color:red;"> *</span></label>
-                                    <div class="col-sm-9">
-                                        <input list="typesP" class="form-control" id="statusP" name="status" value="${editObject.status}" placeholder="Статус" required>
-                                        <datalist id="typesP">
-                                            <c:forEach items="${statusList}" var="status">
-                                            <option value='${status}'>
-                                                </c:forEach>
-                                        </datalist>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3" for="discountP">Скидка, %</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="discountP" name="discount" value="${editObject.discount}" placeholder="Скидка в формате 0.00">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3" for="discountPriceUsdP">Стоимость со скидкой, $</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="discountPriceUsdP" name="discountPriceUsd" value="${editObject.discountPriceUsd}" readonly>
-                                    </div>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <a href="${objects}" role="button" class="btn btn-default">Отмена</a>
-                                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
-                                </div>
-                            </form>
-                        </c:if>
-
+                <!-- menu profile quick info -->
+                <div class="profile">
+                    <div class="profile_info">
+                        <h2><c:out value=" ${fullName}"/></h2>
                     </div>
-                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /menu profile quick info -->
+
+                <br/>
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <br/><br/><br/>
+                        <ul class="nav side-menu">
+                            <li><a href=${index}><span class="glyphicon glyphicon-home"></span> Главная</a></li>
+                            <li><a href=${tasks}><span class="glyphicon glyphicon-tasks"></span> Задачи</a></li>
+                            <li><a href=${contacts}><span class="glyphicon glyphicon-book"></span>Контакты</a></li>
+                            <li><a href=${contracts}><span class="glyphicon glyphicon-list-alt"></span> Договора</a>
+                            </li>
+                        </ul>
+                        <ul class="nav side-menu">
+                            <li class="active"><a href=${objects}><span
+                                    class="glyphicon glyphicon-object-align-bottom"></span> Объекты<span
+                                    class="sr-only">(current)</span></a></li>
+                            <li><a href=${documents}><span class="glyphicon glyphicon-duplicate"></span> Документы</a>
+                            </li>
+                            <li><a href=${reports}><span class="glyphicon glyphicon-briefcase"></span> Отчеты</a></li>
+                            <security:authorize access="hasAnyRole('ROLE_ADMIN')">
+                                <ul class="nav side-menu">
+                                    <li><a href=${users}><span class="glyphicon glyphicon-user"></span> Пользователи</a>
+                                    </li>
+                                </ul>
+                            </security:authorize>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /sidebar menu -->
+            </div>
+        </div>
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3>Объекты</h3>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Изменить объект</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+
+                                <!--Modal-Edit-->
+                                <c:if test="${editObject.type eq 'Квартира'}">
+
+                                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/apartment/update" method="post">
+                                        <input type="hidden" id="id" name="id" value="${id}"/>
+
+
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="houseNumber">Номер дома <span class="required">*</span></label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input type="text" class="form-control" id="houseNumber" name="houseNumber" value="${editObject.houseNumber}" placeholder="Номер дома" required="required">
+                                            </div>
+                                        </div>
+
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="apartmentNumber">Номер квартиры <span class="required">*</span></label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input type="text" class="form-control" id="apartmentNumber" name="apartmentNumber" value="${editObject.apartmentNumber}" placeholder="Номер квартиры" required="required">
+                                            </div>
+                                        </div>
+
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="level">Этаж <span class="required">*</span></label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input type="number" class="form-control" id="level" name="level" value="${editObject.level}" placeholder="Этаж" required="required">
+                                            </div>
+                                        </div>
+
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="totalSpace">Общая площадь, м.кв. <span class="required">*</span></label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input type="text" class="form-control" id="totalSpace" name="totalSpace" value="${editObject.totalSpace}" placeholder="Общая площадь в формате 0.00" required="required" pattern="\d+(\.\d{1,2})?">
+                                            </div>
+                                        </div>
+
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="livingSpace">Жилая площадь, м.кв. <span class="required">*</span></label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input type="text" class="form-control" id="livingSpace" name="livingSpace" value="${editObject.livingSpace}" placeholder="Жилая площадь в формате 0.00" required="required" pattern="\d+(\.\d{1,2})?">
+                                            </div>
+                                        </div>
+
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="rooms">Количество комнат <span class="required">*</span></label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input type="number" class="form-control" id="rooms" name="rooms" value="${editObject.rooms}" placeholder="Количество комнат" required="required">
+                                            </div>
+                                        </div>
+
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="priceUsd">Стоимость по прайсу, $ <span class="required">*</span></label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input type="text" class="form-control" id="priceUsd" name="priceUsd" value="${editObject.priceUsd}" placeholder="Стоимость в формате 0.00" required="required" pattern="\d+(\.\d{1,2})?">
+                                            </div>
+                                        </div>
+
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">Статус <span class="required">*</span></label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <select class="form-control" id="status" name="status" required="required">
+                                                    <c:if test="${editObject.status eq 'SOLD'}">
+                                                        <c:set var="stat" value="Продан"/>
+                                                    </c:if>
+                                                    <c:if test="${editObject.status eq 'RESERVE'}">
+                                                        <c:set var="stat" value="Резерв"/>
+                                                    </c:if>
+                                                    <c:if test="${editObject.status eq 'FREE'}">
+                                                        <c:set var="stat" value="Свободен"/>
+                                                    </c:if>
+                                                    <c:if test="${editObject.status eq 'NOT_SALE'}">
+                                                        <c:set var="stat" value="Не продается"/>
+                                                    </c:if>
+                                                    <option value="${stat}">${stat}</option>
+                                                    <c:forEach items="${statusList}" var="status">
+                                                        <c:if test="${status ne stat}">
+                                                        <option value='${status}'>${status}</option>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="discount">Скидка, %</label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input type="text" class="form-control" id="discount" name="discount" value="${editObject.discount}" placeholder="Скидка в формате 0.00" pattern="\d+(\.\d{1,2})?">
+                                            </div>
+                                        </div>
+
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="discountPriceUsd">Стоимость со скидкой, $</label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <input type="text" class="form-control" id="discountPriceUsd" name="discountPriceUsd" value="${editObject.discountPriceUsd}" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <a href="${objects}" role="button" class="btn btn-default">Отмена</a>
+                                            <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                                        </div>
+                                    </form>
+                                </c:if>
+
+                                <c:if test="${editObject.type eq 'Паркинг'}">
+                                <form id="demo-form2P" data-parsley-validate class="form-horizontal form-label-left" action="/parking/update" method="post">
+                                    <input type="hidden" id="idP" name="id" value="${id}"/>
+
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="houseNumberP">Номер дома <span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="houseNumberP" name="houseNumber" value="${editObject.houseNumber}" placeholder="Номер дома" required="required">
+                                        </div>
+                                    </div>
+
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="parkingNumber">Номер паркинга <span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="parkingNumber" name="parkingNumber" value="${editObject.parkingNumber}" placeholder="Номер паркинга" required="required">
+                                        </div>
+                                    </div>
+
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="levelP">Этаж <span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="number" class="form-control" id="levelP" name="level" value="${editObject.level}" placeholder="Этаж" required="required">
+                                        </div>
+                                    </div>
+
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="totalSpaceP">Общая площадь, м.кв. <span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="totalSpaceP" name="totalSpace" value="${editObject.totalSpace}" placeholder="Общая площадь в формате 0.00" required="required" pattern="\d+(\.\d{1,2})?">
+                                        </div>
+                                    </div>
+
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="priceUsdP">Стоимость по прайсу, $ <span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="priceUsdP" name="priceUsd" value="${editObject.priceUsd}" placeholder="Стоимость в формате 0.00" required="required" pattern="\d+(\.\d{1,2})?">
+                                        </div>
+                                    </div>
+
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="statusP">Статус <span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <select class="form-control" id="statusP" name="status" required="required">
+                                                <c:if test="${editObject.status eq 'SOLD'}">
+                                                    <c:set var="stat" value="Продан"/>
+                                                </c:if>
+                                                <c:if test="${editObject.status eq 'RESERVE'}">
+                                                    <c:set var="stat" value="Резерв"/>
+                                                </c:if>
+                                                <c:if test="${editObject.status eq 'FREE'}">
+                                                    <c:set var="stat" value="Свободен"/>
+                                                </c:if>
+                                                <c:if test="${editObject.status eq 'NOT_SALE'}">
+                                                    <c:set var="stat" value="Не продается"/>
+                                                </c:if>
+                                                <option value="${stat}">${stat}</option>
+                                                <c:forEach items="${statusList}" var="status">
+                                                    <c:if test="${status ne stat}">
+                                                        <option value='${status}'>${status}</option>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="discountP">Скидка, %</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="discountP" name="discount" value="${editObject.discount}" placeholder="Скидка в формате 0.00" pattern="\d+(\.\d{1,2})?">
+                                        </div>
+                                    </div>
+
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="discountPriceUsdP">Стоимость со скидкой, $</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="discountPriceUsdP" name="discountPriceUsd" value="${editObject.discountPriceUsd}" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <a href="${objects}" role="button" class="btn btn-default">Отмена</a>
+                                        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                                    </div>
+                                </form>
+                                </c:if>
+                                <!--Modal-Edit-->
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- /page content -->
 
     </jsp:body>
 

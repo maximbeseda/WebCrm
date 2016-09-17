@@ -38,6 +38,11 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
+    public Contract getById(long id) {
+        return contractRepository.findOne(id);
+    }
+
+    @Override
     @Transactional
     public List<Contract> getAll() {
         return contractRepository.findAll();

@@ -4,7 +4,7 @@ package ua.com.webcrm.entity.enums;
  * Created by Максим Беседа on 24.08.2016.
  */
 public enum ManagerRole {
-    ADMIN, SALES_MANAGER, CONTRACT_DEP_MANAGER, HEAD_OF_SALES_DEP, HEAD_OF_CONTRACT_DEP;
+    ADMIN, SALES_MANAGER, CONTRACT_MANAGER, HEAD_SALES_MANAGER;
 
     @Override
     public String toString() {
