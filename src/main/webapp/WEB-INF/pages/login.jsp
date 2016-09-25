@@ -3,144 +3,204 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <!DOCTYPE html>
-<!-- saved from url=(0041)http://bootstrap-3.ru/examples/jumbotron/ -->
 <html lang="ru">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="http://bootstrap-3.ru/assets/ico/favicon.ico">
+    <link rel="shortcut icon" href="../../resources/img/icon.png">
 
     <title>WEB CRM</title>
 
-    <link href="resources/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="resources/vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="resources/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="resources/build/css/main.css" rel="stylesheet">
 
-    <link href="resources/css/carousel.css" rel="stylesheet">
+    <link href="resources/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+
+    <script src="resources/build/js/modernizr.custom.js"></script>
+
 </head>
 
 <body>
 
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="http://bootstrap-3.ru/examples/jumbotron/#">WEB CRM</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <!--**************************************************************************************-->
-            <spring:url value="/j_spring_security_check" var="loginUrl"/>
-            <c:if test="${param.error == null}">
-            <form class="navbar-form navbar-right" role="form" action="${loginUrl}" method="POST">
-                <div class="form-group">
-                    <input type="text" placeholder="Login" class="form-control" name="j_login">
+<!-- Menu -->
+<nav class="menu" id="theMenu">
+    <div class="menu-wrap">
+        <h1 class="logo"><a href="#headerwrap" style="font-family: Calibri, sans-serif">WEB CRM</a></h1>
+        <i class="fa fa-arrow-right menu-close"></i>
+        <!--Login form-->
+        <spring:url value="/j_spring_security_check" var="loginUrl"/>
+        <c:if test="${param.error == null}">
+        <form class="navbar-form" role="form" action="${loginUrl}" method="POST">
+            <div class="form-group" style="padding-bottom: 5px">
+                <input style="width: 170px" type="text" placeholder="Login" class="form-control" name="j_login">
+            </div>
+            <div class="form-group" style="padding-bottom: 5px">
+                <input style="width: 170px" type="password" placeholder="Password" class="form-control" name="j_password">
+            </div>
+            <button type="submit" class="btn btn-success btn-md btn-block" style="font-family: Calibri, sans-serif">Вход</button>
+        </form>
+        </c:if>
+        <c:if test="${param.error ne null}">
+            <form class="navbar-form has-error" role="form" action="${loginUrl}" method="POST">
+                <div class="form-group" style="padding-bottom: 5px">
+                    <input style="width: 170px" type="text" placeholder="Login" class="form-control" name="j_login">
                 </div>
-                <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control" name="j_password">
+                <div class="form-group" style="padding-bottom: 5px">
+                    <input style="width: 170px" type="password" placeholder="Password" class="form-control" name="j_password">
                 </div>
-                <button type="submit" class="btn btn-success">Вход</button>
-                </c:if>
-                <c:if test="${param.error ne null}">
-                <form class="navbar-form navbar-right has-error" role="form" action="${loginUrl}" method="POST">
-                    <div class="form-group">
-                        <input type="text" placeholder="Login" class="form-control" name="j_login">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" placeholder="Password" class="form-control" name="j_password">
-                    </div>
-                    <button type="submit" class="btn btn-success">Вход</button>
-                </c:if>
+                <button type="submit" class="btn btn-success btn-md btn-block" style="font-family: Calibri, sans-serif">Вход</button>
             </form>
-            <!--***************************************************************************************-->
-        </div><!--/.navbar-collapse -->
-    </div>
-</div>
 
-<!-- Carousel
-    ================================================== -->
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner">
-        <div class="item active">
-            <img data-src="holder.js/900x500/auto/#777:#7a7a7a/text:First slide" alt="First slide">
-            <div class="container">
-                <div class="carousel-caption">
-                    <h1>Example headline.</h1>
-                    <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous"
-                        Glyphicon buttons on the left and right might not load/display properly due to web browser
-                        security rules.</p>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <img data-src="holder.js/900x500/auto/#666:#6a6a6a/text:Second slide" alt="Second slide">
-            <div class="container">
-                <div class="carousel-caption">
-                    <h1>Another example headline.</h1>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida
-                        at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <img data-src="holder.js/900x500/auto/#555:#5a5a5a/text:Third slide" alt="Third slide">
-            <div class="container">
-                <div class="carousel-caption">
-                    <h1>One more for good measure.</h1>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida
-                        at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
-                </div>
-            </div>
-        </div>
+        </c:if>
+        <!--/Login form-->
+        <a href="#contact" style="font-family: Calibri, sans-serif">Контакты</a>
+        <a target="_blank" href="https://ru-ru.facebook.com/people/%D0%9C%D0%B0%D0%BA%D1%81%D0%B8%D0%BC-%D0%91%D0%B5%D1%81%D0%B5%D0%B4%D0%B0/100001801253233"><i class="fa fa-facebook"></i></a>
+        <a target="_blank" ><i class="fa fa-linkedin"></i></a>
+        <a target="_blank" href="https://plus.google.com/111374507781495347251"><i class="fa fa-google-plus"></i></a>
+        <a target="_blank" href="mailto:maxim.beseda@gmail.com"><i class="fa fa-envelope"></i></a>
     </div>
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span
-            class="glyphicon glyphicon-chevron-left"></span></a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next"><span
-            class="glyphicon glyphicon-chevron-right"></span></a>
-</div><!-- /.carousel -->
+
+    <!-- Menu button -->
+    <div id="menuToggle"><i class="fa fa-bars"></i></div>
+</nav>
+
+<!-- MAIN IMAGE SECTION -->
+<div id="headerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <c:if test="${param.error ne null}">
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <strong>Неверный логин или пароль!</strong> Повторите попытку еще раз.
+                </div>
+                </c:if>
+                <h1 style="font-family: Calibri, sans-serif">WEB CRM</h1>
+                <h3 style="font-family: Calibri, sans-serif; color:#FFFFFF">CRM-система для управления всем комплексом задач застройщиков и агентств недвижимости.</h3>
+                <div class="spacer"></div>
+                <i class="fa fa-angle-down"></i>
+            </div>
+        </div><!-- row -->
+    </div><!-- /container -->
+</div><!-- /headerwrap -->
+
+
+<!-- BLOG POSTS -->
+<div class="container">
+    <div class="row mt">
+        <div class="col-lg-12">
+            <h1 style="font-family: Calibri, sans-serif">WEB CRM</h1>
+        </div><!-- col-lg-12 -->
+        <div class="col-lg-12">
+            <p style="font-family: Calibri, sans-serif">Cистема для управления всем циклом продаж, от анализа потребности до заключения сделки и контроля оплат.</p>
+        </div><!-- col-lg-8-->
+    </div><!-- row -->
+
+    <div class="row mt">
+        <div class="col-lg-4">
+            <img class="img-responsive" src="resources/img/post01.jpg" alt="">
+            <h3><a style="font-family: Calibri, sans-serif">Единая база контактов</a></h3>
+            <p style="font-family: Calibri, sans-serif">Создайте единую базу клиентов и партнеров вашей компании. В WEB CRM вы можете хранить любую контактную информацию.</p>
+        </div>
+        <div class="col-lg-4">
+            <img class="img-responsive" src="resources/img/post02.jpg" alt="">
+            <h3><a style="font-family: Calibri, sans-serif">Единая база объектов недвижимости</a></h3>
+            <p style="font-family: Calibri, sans-serif">Создайте базу всех объектов недвижимости компании: дома, секции, квартиры, У вас всегда будет доступ к наиболее полной информации об объектах, включая описание, параметры, планировки и документы.</p>
+        </div>
+        <div class="col-lg-4">
+            <img class="img-responsive" src="resources/img/post03.jpg" alt="">
+            <h3><a style="font-family: Calibri, sans-serif">Единый реестр всех договоров</a></h3>
+            <p style="font-family: Calibri, sans-serif">Ведите все договоры компании, а также связанные с ними спецификации и дополнительные соглашения, акты и другие документы, в едином реестре.</p>
+        </div>
+    </div><!-- row -->
+</div><!-- container -->
 
 
 <div class="container">
+    <div class="row mt">
+        <div class="col-lg-12">
+            <h1 style="font-family: Calibri, sans-serif">Присоединяйтесь к нам в наших социальных сетях.</h1>
+            <br>
+        </div><!-- col-lg-12 -->
+    </div><!-- row -->
+</div><!-- container -->
 
-    <hr>
 
-    <footer>
-        <p>© Created by Maxim Beseda 2016</p>
-    </footer>
-</div> <!-- /container -->
+<!-- SOCIAL FOOTER -->
+<section id="contact"></section>
+<div id="sf">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 dg">
+                <h4 class="ml">Facebook</h4>
+                <p class="centered"><a target="_blank" href="https://ru-ru.facebook.com/people/%D0%9C%D0%B0%D0%BA%D1%81%D0%B8%D0%BC-%D0%91%D0%B5%D1%81%D0%B5%D0%B4%D0%B0/100001801253233"><i class="fa fa-facebook"></i></a></p>
+            </div>
+            <div class="col-lg-4 lg">
+                <h4 class="ml">LinkedIn</h4>
+                <p class="centered"><a target="_blank"><i class="fa fa-linkedin"></i></a></p>
+            </div>
+            <div class="col-lg-4 dg">
+                <h4 class="ml">Google +</h4>
+                <p class="centered"><a target="_blank" href="https://plus.google.com/111374507781495347251"><i class="fa fa-google-plus"></i></a></p>
+            </div>
+        </div><!-- row -->
+    </div><!-- container -->
+</div><!-- Social Footer -->
+
+<!-- CONTACT FOOTER -->
+<div id="cf">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div id="mapwrap">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2682585.6691765273!2d29.838441313048392!3d50.36404733055903!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4cf4ee15a4505%3A0x764931d2170146fe!2z0JrQuNGX0LIsIDAyMDAw!5e0!3m2!1suk!2sua!4v1474631052708" width="100%" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                </div>
+            </div><!--col-lg-8-->
+            <div class="col-lg-4">
+                <h4 style="font-family: Calibri, sans-serif">Контакты<br/></h4>
+                <br>
+                <p style="font-family: Calibri, sans-serif">
+                    Максим Беседа<br/>
+                    Тел: +38(095)943-19-89<br/>
+                    E-mail: <a href="mailto:maxim.beseda@gmail.com">maxim.beseda@gmail.com</a>
+                </p>
+            </div><!--col-lg-4-->
+        </div><!-- row -->
+    </div><!-- container -->
+</div><!-- Contact Footer -->
 
 
 <!-- Bootstrap core JavaScript
-    ================================================== -->
+================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="resources/vendors/jquery/dist/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="resources/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="resources/js/docs.min.js"></script>
-
+<script src="resources/build/js/main.js"></script>
+<script src="resources/build/js/masonry.pkgd.min.js"></script>
+<script src="resources/build/js/imagesloaded.js"></script>
+<script src="resources/build/js/classie.js"></script>
+<script src="resources/build/js/AnimOnScroll.js"></script>
+<script>
+    new AnimOnScroll( document.getElementById( 'grid' ), {
+        minDuration : 0.4,
+        maxDuration : 0.7,
+        viewportFactor : 0.2
+    } );
+</script>
 </body>
 </html>

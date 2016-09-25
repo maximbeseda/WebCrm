@@ -48,4 +48,10 @@ public class DocumentServiceImpl implements DocumentService {
     public List<Document> getAll() {
         return documentRepository.findAll();
     }
+
+    @Override
+    @Transactional
+    public Document getById(long id) {
+        return documentRepository.findOne(id);
+    }
 }

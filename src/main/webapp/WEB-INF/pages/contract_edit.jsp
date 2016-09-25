@@ -17,13 +17,12 @@
         <spring:url value="/objects" var="objects"/>
         <spring:url value="/documents" var="documents"/>
         <spring:url value="/reports" var="reports"/>
-        <spring:url value="/analytics" var="analytics"/>
         <spring:url value="/users" var="users"/>
 
         <div class="col-md-3 left_col menu_fixed">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="${index}" class="site_title"><i class="fa fa-paw"></i> <span>WEB CRM</span></a>
+                    <a href="${index}" class="site_title"><i class="fa fa-cube"></i> <span>WEB CRM</span></a>
                 </div>
                 <div class="clearfix"></div>
 
@@ -42,22 +41,18 @@
                     <div class="menu_section">
                         <br/><br/><br/>
                         <ul class="nav side-menu">
-                            <li><a href=${index}><span class="glyphicon glyphicon-home"></span> Главная</a></li>
-                            <li><a href=${tasks}><span class="glyphicon glyphicon-tasks"></span> Задачи</a></li>
-                            <li><a href=${contacts}><span class="glyphicon glyphicon-book"></span> Контакты</a></li>
-                            <li class="active"><a href=${contracts}><span class="glyphicon glyphicon-list-alt"></span>
-                                Договора<span class="sr-only">(current)</span></a></li>
+                            <li><a href=${index}><i class="fa fa-home"></i> Главная</a></li>
+                            <li><a href=${tasks}><i class="fa fa-tasks"></i> Задачи</a></li>
+                            <li><a href=${contacts}><i class="fa fa-phone"></i> Контакты</a></li>
+                            <li class="active"><a href=${contracts}><i class="fa fa-clone"></i> Договора<span class="sr-only">(current)</span></a></li>
                         </ul>
                         <ul class="nav side-menu">
-                            <li><a href=${objects}><span class="glyphicon glyphicon-object-align-bottom"></span> Объекты</a>
-                            </li>
-                            <li><a href=${documents}><span class="glyphicon glyphicon-duplicate"></span> Документы</a>
-                            </li>
-                            <li><a href=${reports}><span class="glyphicon glyphicon-briefcase"></span> Отчеты</a></li>
+                            <li><a href=${objects}><i class="fa fa-building"></i> Объекты</a></li>
+                            <li><a href=${documents}><i class="fa fa-file"></i> Документы</a></li>
+                            <li><a href=${reports}><i class="fa fa-line-chart"></i> Отчеты</a></li>
                             <security:authorize access="hasAnyRole('ROLE_ADMIN')">
                                 <ul class="nav side-menu">
-                                    <li><a href=${users}><span class="glyphicon glyphicon-user"></span> Пользователи</a>
-                                    </li>
+                                    <li><a href=${users}><i class="fa fa-users"></i> Пользователи</a></li>
                                 </ul>
                             </security:authorize>
                         </ul>
@@ -86,34 +81,23 @@
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
-                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                    </li>
                                 </ul>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
 
                                 <!--Modal-Edit-->
-                                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/contract/update" method="post">
+                                <form id="demo-form2P" data-parsley-validate class="form-horizontal form-label-left" action="/contract/update" method="post">
                                     <input type="hidden" id="id" name="id" value="${id}"/>
 
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contractType">Тип договора <span class="required">*</span></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="contractTypeId">Тип договора <span class="required">*</span></label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <select class="form-control" id="contractType" name="contractType" required="required">
-                                                <c:if test="${editContract.contractType eq 'BONDS'}">
-                                                    <c:set var="cType" value="Договор купли-продажи ЦБ"/>
-                                                </c:if>
-                                                <c:if test="${editContract.contractType eq 'PRESALE'}">
-                                                    <c:set var="cType" value="Предварительный договор"/>
-                                                </c:if>
-                                                <c:if test="${editContract.contractType eq 'SALE'}">
-                                                    <c:set var="cType" value="Основной договор"/>
-                                                </c:if>
-                                                <option value="${cType}">${cType}</option>
+                                            <select class="form-control" id="contractTypeId" name="contractTypeId" required="required">
+                                                <option value="${editContract.contractType.id}">${editContract.contractType}</option>
                                                 <c:forEach items="${contractTypeList}" var="contractType">
-                                                    <c:if test="${contractType ne cType}">
-                                                    <option value='${contractType}'>${contractType}</option>
+                                                    <c:if test="${contractType.id ne editContract.contractType.id}">
+                                                    <option value='${contractType.id}'>${contractType}</option>
                                                     </c:if>
                                                 </c:forEach>
                                             </select>

@@ -40,6 +40,7 @@ public abstract class AbstractObjectOfSale {
         this.totalSpace = totalSpace;
         this.priceUsd = priceUsd;
         this.status = status;
+        this.discountPriceUsd = discountPrice(priceUsd, 0.0);
     }
 
     public AbstractObjectOfSale(String houseNumber, String level, double totalSpace, double priceUsd, StatusObj status,

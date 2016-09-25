@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="../../resources/img/icon.png">
     <title>
         <jsp:invoke fragment="title"/>
     </title>
@@ -28,11 +28,18 @@
     <script src="resources/js/ie8-responsive-file-warning.js"></script>
     <![endif]-->
     <script src="resources/js/ie-emulation-modes-warning.js"></script>
+    <!-- jQuery custom content scroller -->
+    <link href="resources/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
     <!--Data Tables CSS-->
     <link href="resources/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="resources/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <!-- Select2 -->
     <link href="resources/vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    <!-- FullCalendar -->
+    <link href="resources/vendors/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+    <link href="resources/vendors/fullcalendar/dist/fullcalendar.print.css" rel="stylesheet" media="print">
+    <!-- Dropzone.js -->
+    <link href="resources/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
     <link href="resources/build/css/custom.min.css" rel="stylesheet">
@@ -60,15 +67,11 @@
                         <c:url value="/logout" var="logoutUrl"/>
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
-                               aria-expanded="false">
-                                <c:out value=" ${fullName}"/>
-                                <span class=" fa fa-angle-down"></span>
+                               aria-expanded="false"><i class="fa fa-user"></i> <c:out value=" ${fullName}"/> <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="javascript:;">Профиль</a></li>
-                                <li><a href="javascript:;">Настройки</a></li>
-                                <li><a href="${logoutUrl}"><i class="fa fa-sign-out pull-right"></i>Выход</a>
-                                </li>
+                                <li><a href="/user_info"><i class="fa fa-user pull-right"></i>Профиль</a></li>
+                                <li><a href="${logoutUrl}"><i class="fa fa-sign-out pull-right"></i>Выход</a></li>
                             </ul>
                         </li>
 
@@ -146,7 +149,7 @@
         <!-- footer content -->
         <footer>
             <div class="pull-right">
-                <a href="https://colorlib.com">Colorlib</a>
+                <a href="https://www.linkedin.com/">© Maxim Beseda 2016</a>
             </div>
             <div class="clearfix"></div>
         </footer>
@@ -162,6 +165,8 @@
 <script src="resources/vendors/fastclick/lib/fastclick.js"></script>
 <!-- NProgress -->
 <script src="resources/vendors/nprogress/nprogress.js"></script>
+<!-- jQuery custom content scroller -->
+<script src="resources/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 <!-- Data tables -->
 <script src="resources/js/jquery.dataTables.min.js"></script>
 <script src="resources/js/dataTables.bootstrap.min.js"></script>
@@ -169,8 +174,15 @@
 <script src="resources/vendors/select2/dist/js/select2.full.min.js"></script>
 <!-- Parsley -->
 <script src="resources/vendors/parsleyjs/dist/parsley.min.js"></script>
-
-
+<!-- Autosize -->
+<script src="resources/vendors/autosize/dist/autosize.min.js"></script>
+<!-- FullCalendar -->
+<script src="resources/vendors/moment/min/moment.min.js"></script>
+<script src="resources/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
+<script src="resources/vendors/fullcalendar/dist/lang/ru.js"></script>
+<script src="resources/js/calendar.js"></script>
+<!-- Dropzone.js -->
+<script src="resources/vendors/dropzone/dist/min/dropzone.min.js"></script>
 
 <!-- Custom Theme Scripts -->
 <script src="resources/build/js/custom.min.js"></script>

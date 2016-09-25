@@ -11,6 +11,7 @@ public interface DocumentService {
     Document addDocument(Document document);
     void delete(long id);
     Document getByName(String name);
+    Document getById(long id);
     Document editDocument(Document document);
     List<Document> getAll();
 }

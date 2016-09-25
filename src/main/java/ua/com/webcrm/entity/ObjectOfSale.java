@@ -1,6 +1,7 @@
 package ua.com.webcrm.entity;
 
 import ua.com.webcrm.entity.enums.StatusObj;
+import ua.com.webcrm.files.UploadFile;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
  * Created by Максим Беседа on 28.08.2016.
  */
 @Entity
-@Table(name = "Objects")
+@Table(name = "objects")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "object_type")
 public class ObjectOfSale extends AbstractObjectOfSale {
@@ -24,6 +25,12 @@ public class ObjectOfSale extends AbstractObjectOfSale {
 
     @OneToMany(mappedBy="objectOfSale")
     private List<Contract> contracts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "objectOfSale", cascade = CascadeType.ALL)
+    private List<UploadFile> uploadFiles = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private UploadFile plan;
 
     public ObjectOfSale() {
     }
@@ -65,5 +72,21 @@ public class ObjectOfSale extends AbstractObjectOfSale {
 
     public void setContracts(List<Contract> contracts) {
         this.contracts = contracts;
+    }
+
+    public List<UploadFile> getUploadFiles() {
+        return uploadFiles;
+    }
+
+    public void setUploadFiles(List<UploadFile> uploadFiles) {
+        this.uploadFiles = uploadFiles;
+    }
+
+    public UploadFile getPlan() {
+        return plan;
+    }
+
+    public void setPlan(UploadFile plan) {
+        this.plan = plan;
     }
 }

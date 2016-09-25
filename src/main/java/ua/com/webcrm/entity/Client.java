@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Максим Беседа on 24.08.2016.
  */
 @Entity
-@Table(name = "Clients")
+@Table(name = "clients")
 public class Client extends Contact {
 
     @Column(name = "partner_name")

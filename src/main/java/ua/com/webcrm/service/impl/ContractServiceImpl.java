@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.webcrm.entity.Contract;
+import ua.com.webcrm.entity.enums.StatusContract;
 import ua.com.webcrm.repository.ContractRepository;
 import ua.com.webcrm.service.ContractService;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,5 +48,11 @@ public class ContractServiceImpl implements ContractService {
     @Transactional
     public List<Contract> getAll() {
         return contractRepository.findAll();
+    }
+
+    @Override
+    @Transactional
+    public List<Contract> getByDateAndStatus(Date date, StatusContract statusContract) {
+        return contractRepository.findByDateAfterAndStatusIsLike(date, statusContract);
     }
 }

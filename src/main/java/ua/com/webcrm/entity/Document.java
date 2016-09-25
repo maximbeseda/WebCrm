@@ -1,27 +1,28 @@
 package ua.com.webcrm.entity;
 
 import ua.com.webcrm.entity.enums.StatusDoc;
+import ua.com.webcrm.files.UploadFile;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Максим Беседа on 24.08.2016.
  */
 @Entity
-@Table(name = "Documents")
+@Table(name = "documents")
 public class Document {
 
     @Id
     @GeneratedValue
     private long id;
 
-    @Column(nullable = false)
     private String name;
-
     private String info;
     private String resolution;
 
-    @Column(nullable = false)
+    @Column
     @Enumerated(EnumType.STRING)
     private StatusDoc status;
 
@@ -41,6 +42,9 @@ public class Document {
     @JoinColumn(name = "task_id")
     private Task task;
 
+    @OneToMany(mappedBy = "document", cascade = CascadeType.ALL)
+    private List<UploadFile> uploadFiles = new ArrayList<>();
+
 
     public Document() {
     }
@@ -49,6 +53,15 @@ public class Document {
         this.name = name;
         this.status = status;
         this.manager = manager;
+    }
+
+    public Document(String name, String info, StatusDoc status, Client client, Manager manager, Contract contract) {
+        this.name = name;
+        this.info = info;
+        this.status = status;
+        this.client = client;
+        this.manager = manager;
+        this.contract = contract;
     }
 
     public Document(String name, String info, String resolution, StatusDoc status, Client client, Manager manager,
@@ -133,5 +146,20 @@ public class Document {
 
     public void setTask(Task task) {
         this.task = task;
+    }
+
+    public List<UploadFile> getUploadFiles() {
+        return uploadFiles;
+    }
+
+    public void setUploadFiles(List<UploadFile> uploadFiles) {
+        this.uploadFiles = uploadFiles;
+    }
+
+    public void addFiles(List<UploadFile> files) {
+        for (UploadFile file : files) {
+            file.setDocument(this);
+            this.uploadFiles.add(file);
+        }
     }
 }

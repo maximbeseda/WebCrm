@@ -1,7 +1,9 @@
 package ua.com.webcrm.service;
 
 import ua.com.webcrm.entity.Contract;
+import ua.com.webcrm.entity.enums.StatusContract;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,4 +15,5 @@ public interface ContractService {
     Contract editContract(Contract contract);
     Contract getById(long id);
     List<Contract> getAll();
+    List<Contract> getByDateAndStatus(Date date, StatusContract statusContract);
 }

@@ -17,13 +17,12 @@
         <spring:url value="/objects" var="objects"/>
         <spring:url value="/documents" var="documents"/>
         <spring:url value="/reports" var="reports"/>
-        <spring:url value="/analytics" var="analytics"/>
         <spring:url value="/users" var="users"/>
 
         <div class="col-md-3 left_col menu_fixed">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="${index}" class="site_title"><i class="fa fa-paw"></i> <span>WEB CRM</span></a>
+                    <a href="${index}" class="site_title"><i class="fa fa-cube"></i> <span>WEB CRM</span></a>
                 </div>
                 <div class="clearfix"></div>
 
@@ -42,23 +41,19 @@
                     <div class="menu_section">
                         <br/><br/><br/>
                         <ul class="nav side-menu">
-                            <li><a href=${index}><span class="glyphicon glyphicon-home"></span> Главная</a></li>
-                            <li class="active"><a href=${tasks}><span class="glyphicon glyphicon-tasks"></span>
-                                Задачи<span class="sr-only">(current)</span></a></li>
-                            <li><a href=${contacts}><span class="glyphicon glyphicon-book"></span> Контакты</a></li>
-                            <li><a href=${contracts}><span class="glyphicon glyphicon-list-alt"></span> Договора</a>
+                            <li><a href=${index}><i class="fa fa-home"></i> Главная</a></li>
+                            <li class="active"><a href=${tasks}><i class="fa fa-tasks"></i> Задачи<span class="sr-only">(current)</span></a>
                             </li>
+                            <li><a href=${contacts}><i class="fa fa-phone"></i> Контакты</a></li>
+                            <li><a href=${contracts}><i class="fa fa-clone"></i> Договора</a></li>
                         </ul>
                         <ul class="nav side-menu">
-                            <li><a href=${objects}><span class="glyphicon glyphicon-object-align-bottom"></span> Объекты</a>
-                            </li>
-                            <li><a href=${documents}><span class="glyphicon glyphicon-duplicate"></span> Документы</a>
-                            </li>
-                            <li><a href=${reports}><span class="glyphicon glyphicon-briefcase"></span> Отчеты</a></li>
+                            <li><a href=${objects}><i class="fa fa-building"></i> Объекты</a></li>
+                            <li><a href=${documents}><i class="fa fa-file"></i> Документы</a></li>
+                            <li><a href=${reports}><i class="fa fa-line-chart"></i> Отчеты</a></li>
                             <security:authorize access="hasAnyRole('ROLE_ADMIN')">
                                 <ul class="nav side-menu">
-                                    <li><a href=${users}><span class="glyphicon glyphicon-user"></span> Пользователи</a>
-                                    </li>
+                                    <li><a href=${users}><i class="fa fa-users"></i> Пользователи</a></li>
                                 </ul>
                             </security:authorize>
                         </ul>
@@ -80,88 +75,102 @@
                 <div class="clearfix"></div>
 
                 <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Список задач</h2>
+                                <h2>Календарь <small style="color: red">(календарь с задачами находится на этапе разработки, работает в демо-режиме)</small></h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
                                     </li>
                                 </ul>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
 
-                                <!--Button Group-->
-                                <div class="panel">
-                                    <div class="btn-toolbar">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-success" data-toggle="modal"
-                                                    data-target="#modal-create">Новая задача
-                                            </button>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button id="edit_task" type="button" class="btn btn-warning">Изменить
-                                            </button>
-                                        </div>
-                                        <div class="btn-group">
-                                            <button id="delete_task" type="button" class="btn btn-danger">Удалить
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!--Data Table-->
-                                <table id="datatable" class="table table-striped table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>***</th>
-                                        <th>***</th>
-                                        <th>***</th>
-                                        <th>***</th>
-                                        <th>***</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tfoot>
-                                    <tr>
-                                        <th>***</th>
-                                        <th>***</th>
-                                        <th>***</th>
-                                        <th>***</th>
-                                        <th>***</th>
-                                    </tr>
-                                    </tfoot>
-
-                                    <tbody>
-                                    <c:forEach items="${allTasks}" var="task">
-                                        <tr data-value="${contract.id}">
-                                            <td>${task.aaa}</td>
-                                            <td>${task.aaa}</td>
-                                            <td>${task.aaa}</td>
-                                            <td>${task.aaa}</td>
-                                            <td>${task.aaa}</td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                                <!--Data Table-->
-
-                                <!--Modal-Create-->
+                                <div id='calendar'></div>
 
 
-                                <!--Modal-Create-->
-                                <form style="display: none" action="/task_edit" method="POST" id="formidupdate">
-                                    <input type="hidden" id="toUpdate" name="toUpdate" value=""/>
-                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- /page content -->
+
+        <!-- calendar modal -->
+        <div id="CalenderModalNew" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">Новая задача</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="testmodal" style="padding: 5px 20px;">
+                            <form id="antoform" class="form-horizontal calender" role="form">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Заголовок</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="title" name="title">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Описание</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" style="height:55px;" id="descr" name="descr"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary antosubmit">Добавить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="CalenderModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel2">Изменить задачу</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div id="testmodal2" style="padding: 5px 20px;">
+                            <form id="antoform2" class="form-horizontal calender" role="form">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Заголовок</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="title2" name="title2">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Описание</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" style="height:55px;" id="descr2" name="descr"></textarea>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default antoclose2" data-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary antosubmit2">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="fc_create" data-toggle="modal" data-target="#CalenderModalNew"></div>
+        <div id="fc_edit" data-toggle="modal" data-target="#CalenderModalEdit"></div>
+        <!-- /calendar modal -->
         <!-- /page content -->
 
     </jsp:body>

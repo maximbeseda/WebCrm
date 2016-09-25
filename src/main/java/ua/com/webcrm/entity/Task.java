@@ -10,7 +10,7 @@ import java.util.Date;
  */
 
 @Entity
-@Table(name = "Tasks")
+@Table(name = "tasks")
 public class Task {
 
     @Id

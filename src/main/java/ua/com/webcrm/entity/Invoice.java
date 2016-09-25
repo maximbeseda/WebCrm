@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by Максим Беседа on 24.08.2016.
  */
 @Entity
-@Table(name = "Payments")
+@Table(name = "payments")
 public class Invoice {
 
     @Id

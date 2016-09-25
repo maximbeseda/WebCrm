@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Максим Беседа on 24.08.2016.
  */
 @Entity
-@Table(name = "Managers")
+@Table(name = "managers")
 public class Manager extends Contact {
 
     @Column(nullable = false)

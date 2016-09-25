@@ -1,6 +1,5 @@
 package ua.com.webcrm.entity;
 
-import ua.com.webcrm.entity.enums.ContractType;
 import ua.com.webcrm.entity.enums.StatusContract;
 
 import javax.persistence.*;
@@ -11,16 +10,12 @@ import java.util.List;
  * Created by Максим Беседа on 24.08.2016.
  */
 @Entity
-@Table(name = "Contracts")
+@Table(name = "contracts")
 public class Contract {
 
     @Id
     @GeneratedValue
     private long id;
-
-    @Column(name = "contract_type", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private ContractType contractType;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -32,6 +27,9 @@ public class Contract {
     private double amountUAH;
     private double rate;
 
+    @ManyToOne
+    @JoinColumn(name = "contractType_id")
+    private ContractType contractType;
 
     @ManyToOne
     @JoinColumn(name = "client_id")

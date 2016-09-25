@@ -17,13 +17,12 @@
         <spring:url value="/objects" var="objects"/>
         <spring:url value="/documents" var="documents"/>
         <spring:url value="/reports" var="reports"/>
-        <spring:url value="/analytics" var="analytics"/>
         <spring:url value="/users" var="users"/>
 
         <div class="col-md-3 left_col menu_fixed">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="${index}" class="site_title"><i class="fa fa-paw"></i> <span>WEB CRM</span></a>
+                    <a href="${index}" class="site_title"><i class="fa fa-cube"></i> <span>WEB CRM</span></a>
                 </div>
                 <div class="clearfix"></div>
 
@@ -42,23 +41,18 @@
                     <div class="menu_section">
                         <br/><br/><br/>
                         <ul class="nav side-menu">
-                            <li><a href=${index}><span class="glyphicon glyphicon-home"></span> Главная</a></li>
-                            <li><a href=${tasks}><span class="glyphicon glyphicon-tasks"></span> Задачи</a></li>
-                            <li><a href=${contacts}><span class="glyphicon glyphicon-book"></span> Контакты</a></li>
-                            <li><a href=${contracts}><span class="glyphicon glyphicon-list-alt"></span> Договора</a>
-                            </li>
+                            <li><a href=${index}><i class="fa fa-home"></i> Главная</a></li>
+                            <li><a href=${tasks}><i class="fa fa-tasks"></i> Задачи</a></li>
+                            <li><a href=${contacts}><i class="fa fa-phone"></i> Контакты</a></li>
+                            <li><a href=${contracts}><i class="fa fa-clone"></i> Договора</a></li>
                         </ul>
                         <ul class="nav side-menu">
-                            <li><a href=${objects}><span class="glyphicon glyphicon-object-align-bottom"></span> Объекты</a>
-                            </li>
-                            <li><a href=${documents}><span class="glyphicon glyphicon-duplicate"></span> Документы</a>
-                            </li>
-                            <li><a href=${reports}><span class="glyphicon glyphicon-briefcase"></span> Отчеты</a></li>
+                            <li><a href=${objects}><i class="fa fa-building"></i> Объекты</a></li>
+                            <li><a href=${documents}><i class="fa fa-file"></i> Документы</a></li>
+                            <li><a href=${reports}><i class="fa fa-line-chart"></i> Отчеты</a></li>
                             <security:authorize access="hasAnyRole('ROLE_ADMIN')">
                                 <ul class="nav side-menu">
-                                    <li class="active"><a href=${users}><span class="glyphicon glyphicon-user"></span>
-                                        Пользователи <span class="sr-only">(current)</span></a>
-                                    </li>
+                                    <li class="active"><a href=${users}><i class="fa fa-users"></i> Пользователи <span class="sr-only">(current)</span></a></li>
                                 </ul>
                             </security:authorize>
                         </ul>
@@ -87,8 +81,6 @@
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
-                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                    </li>
                                 </ul>
                                 <div class="clearfix"></div>
                             </div>
@@ -98,7 +90,7 @@
                                 <div class="panel">
                                     <div class="btn-toolbar">
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                            <button type="button" class="btn btn-dark" data-toggle="modal"
                                                     data-target="#modal-create">Создать
                                             </button>
                                         </div>
@@ -159,7 +151,7 @@
                                                 <h4 class="modal-title" id="myModalLabel">Новый пользователь</h4>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/user/add" method="post">
+                                                <form id="demo-form2P" data-parsley-validate class="form-horizontal form-label-left" action="/user/add" method="post">
                                                     <div class="item form-group">
                                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fullName">Ф.И.О. <span class="required">*</span></label>
                                                         <div class="col-md-9 col-sm-9 col-xs-12">
@@ -224,14 +216,14 @@
                                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="login">Логин <span class="required">*</span></label>
                                                         <div class="col-md-9 col-sm-9 col-xs-12">
                                                             <input type="text" class="form-control" id="login"
-                                                                   name="login" placeholder="Логин">
+                                                                   name="login" placeholder="Логин" required="required">
                                                         </div>
                                                     </div>
 
                                                     <div class="item form-group">
                                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">Пароль <span class="required">*</span></label>
                                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                                            <input type="password" class="form-control" id="password" name="password" placeholder="Пароль в формате SHA1">
+                                                            <input type="password" class="form-control" id="password" name="password" placeholder="Пароль в формате SHA1" required="required">
                                                             <a href="http://www.sha1-online.com/" target="_blank" style="color: #2e6da4">www.sha1-online.com</a>
                                                         </div>
                                                     </div>
@@ -239,9 +231,7 @@
                                                         <button type="button" class="btn btn-default"
                                                                 data-dismiss="modal">Отменить
                                                         </button>
-                                                        <button type="submit" class="btn btn-primary">Сохранить
-                                                            изменения
-                                                        </button>
+                                                        <button type="submit" class="btn btn-primary">Сохранить</button>
                                                     </div>
                                                 </form>
                                             </div>
