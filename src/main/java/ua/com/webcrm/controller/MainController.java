@@ -430,6 +430,7 @@ public class MainController {
         contract.setDate(date);
         contract.setAmountUSD(amountUSD);
         contract.setRate(rate);
+        contract.setAmountUAH(contract.getAmountUAH(amountUSD, rate));
         contract.setClient(client);
         contract.setObjectOfSale(objectOfSale);
         contract.addFiles(addFilesToEntity(files));
@@ -639,6 +640,7 @@ public class MainController {
         apartment.setTotalSpace(totalSpace);
         apartment.setPriceUsd(priceUsd);
         apartment.setDiscount(disc);
+        apartment.setDiscountPriceUsd(apartment.discountPrice(priceUsd, disc));
         apartment.setStatus(statusObj);
         apartment.setLivingSpace(livingSpace);
         apartment.setRooms(rooms);
@@ -672,6 +674,7 @@ public class MainController {
         parking.setStatus(statusObj);
         parking.setParkingNumber(parkingNumber);
         parking.setDiscount(disc);
+        parking.setDiscountPriceUsd(parking.discountPrice(priceUsd, disc));
         parking.setInfo(info);
         parking.addFiles(addFilesToEntity(file));
         parking.setId(id);
