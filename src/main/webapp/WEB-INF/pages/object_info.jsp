@@ -27,14 +27,6 @@
                 </div>
                 <div class="clearfix"></div>
 
-                <!-- menu profile quick info -->
-                <div class="profile">
-                    <div class="profile_info">
-                        <h2><c:out value=" ${fullName}"/></h2>
-                    </div>
-                </div>
-                <!-- /menu profile quick info -->
-
                 <br/>
 
                 <!-- sidebar menu -->
@@ -50,7 +42,6 @@
                         <ul class="nav side-menu">
                             <li class="active"><a href=${objects}><i class="fa fa-building"></i> Объекты<span class="sr-only">(current)</span></a></li>
                             <li><a href=${documents}><i class="fa fa-file"></i> Документы</a></li>
-                            <li><a href=${reports}><i class="fa fa-line-chart"></i> Отчеты</a></li>
                             <security:authorize access="hasAnyRole('ROLE_ADMIN')">
                                 <ul class="nav side-menu">
                                     <li><a href=${users}><i class="fa fa-users"></i> Пользователи</a></li>
@@ -79,16 +70,13 @@
                         <div class="x_panel">
                             <div class="x_title">
                                 <h2>Карточка объекта</h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                </ul>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
 
                                 <div class="col-md-7 col-sm-7 col-xs-12">
-                                    <div class="product-image">
+                                    <div class="product-image" data-toggle="modal"
+                                         data-target="#modal-create">
                                         <c:if test="${getObject.plan ne null}">
                                             <img src="/download/inbox/${getObject.plan.id}/${getObject.plan.fileHash}" alt="..." />
                                         </c:if>
@@ -97,6 +85,45 @@
                                         </c:if>
                                     </div>
                                 </div>
+
+                                <div id="modal-create" class="modal fade bs-example-modal-lg" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Добавить планировку</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="demo-form2P" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data" action="/plan_add" method="post">
+                                                    <input type="hidden" id="id" name="id" value="${id}"/>
+                                                    <div class="item form-group">
+                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="upfile">Прикрепить файл</label>
+                                                        <div class="col-md-9 col-sm-9 col-xs-12" id="upfile">
+                                                            <div class="input-group">
+                                                                <label class="input-group-btn">
+                                                                    <span class="btn btn-primary">
+                                                                        Добавить&hellip; <input type="file" name="upfile" style="display: none;">
+                                                                    </span>
+                                                                </label>
+                                                                <input type="text" class="form-control" readonly>
+                                                            </div>
+                                                        </div><!-- /input-group -->
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
+                                                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
 
                                 <div class="col-md-5 col-sm-5 col-xs-12" style="border:0px solid #e5e5e5;">
 
@@ -190,6 +217,11 @@
                                             <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
                                                 <!-- Договора -->
                                                 <table class="table table-striped table-bordered">
+                                                    <c:if test="${getObject.contracts.size() eq 0}">
+                                                        <br>
+                                                        <p align="center">Договора отсутствуют</p>
+                                                    </c:if>
+                                                    <c:if test="${getObject.contracts.size() ne 0}">
                                                     <thead>
                                                     <tr>
                                                         <th>Тип</th>
@@ -222,24 +254,33 @@
                                                         </tr>
                                                     </c:forEach>
                                                     </tbody>
+                                                    </c:if>
                                                 </table>
                                                 <!-- /Договора -->
                                             </div>
                                             <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
                                                 <!-- Файлы -->
                                                 <table class="table table-bordered table-striped">
-                                                    <tbody>
-                                                    <c:forEach items="${getObject.uploadFiles}" var="file">
+                                                    <c:if test="${getObject.files.size() eq 0}">
+                                                        <br>
+                                                        <p align="center">Файлы отсутствуют</p>
+                                                    </c:if>
+                                                    <c:if test="${getObject.files.size() ne 0}">
+                                                        <thead>
                                                         <tr>
-                                                            <td>Название</td>
-                                                            <td>${file.fileName}</td>
+                                                            <th>Скачать</th>
+                                                            <th>Удалить</th>
                                                         </tr>
-                                                        <tr>
-                                                            <td>Файл</td>
-                                                            <td><a class="btn btn-primary btn-xs" href="/download/inbox/${file.id}/${file.fileHash}">${file.fileName}</a></td>
-                                                        </tr>
-                                                    </c:forEach>
-                                                    </tbody>
+                                                        </thead>
+                                                        <tbody>
+                                                        <c:forEach items="${getObject.files}" var="file">
+                                                            <tr data-value="${file.id}">
+                                                                <td><a class="btn btn-primary btn-xs" href="/download/inbox/${file.id}/${file.fileHash}">${file.fileName}</a></td>
+                                                                <td><a class="btn btn-danger btn-xs confirmation" style="cursor:pointer">${file.fileName}</a></td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                        </tbody>
+                                                    </c:if>
                                                 </table>
                                                 <!-- /Файлы -->
                                             </div>

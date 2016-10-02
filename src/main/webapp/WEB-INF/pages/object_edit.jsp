@@ -26,14 +26,6 @@
                 </div>
                 <div class="clearfix"></div>
 
-                <!-- menu profile quick info -->
-                <div class="profile">
-                    <div class="profile_info">
-                        <h2><c:out value=" ${fullName}"/></h2>
-                    </div>
-                </div>
-                <!-- /menu profile quick info -->
-
                 <br/>
 
                 <!-- sidebar menu -->
@@ -49,7 +41,6 @@
                         <ul class="nav side-menu">
                             <li class="active"><a href=${objects}><i class="fa fa-building"></i> Объекты<span class="sr-only">(current)</span></a></li>
                             <li><a href=${documents}><i class="fa fa-file"></i> Документы</a></li>
-                            <li><a href=${reports}><i class="fa fa-line-chart"></i> Отчеты</a></li>
                             <security:authorize access="hasAnyRole('ROLE_ADMIN')">
                                 <ul class="nav side-menu">
                                     <li><a href=${users}><i class="fa fa-users"></i> Пользователи</a></li>
@@ -78,10 +69,6 @@
                         <div class="x_panel">
                             <div class="x_title">
                                 <h2>Изменить объект</h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                </ul>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
@@ -89,7 +76,7 @@
                                 <!--Modal-Edit-->
                                 <c:if test="${editObject.type eq 'Квартира'}">
 
-                                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data" action="/apartment/update" method="post">
+                                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data" action="/apartment_update" method="post">
                                         <input type="hidden" id="id" name="id" value="${id}"/>
 
 
@@ -183,17 +170,26 @@
                                         </div>
 
                                         <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="upfile">Прикрепить план</label>
-                                            <div class="col-md-9 col-sm-9 col-xs-12" id="upfile">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="info">Описание</label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                <textarea class="resizable_textarea form-control" id="info" name="info">${editObject.info}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="upfiles">Прикрепить файлы</label>
+                                            <div class="col-md-9 col-sm-9 col-xs-12" id="upfiles">
                                                 <div class="input-group">
                                                     <label class="input-group-btn">
-                                                        <span class="btn btn-primary">
-                                                            Добавить&hellip; <input type="file" name="upfile" style="display: none;">
-                                                        </span>
+                                                    <span class="btn btn-primary">
+                                                        Добавить&hellip; <input type="file" name="upfiles[]" style="display: none;" multiple>
+                                                    </span>
                                                     </label>
                                                     <input type="text" class="form-control" readonly>
                                                 </div>
-                                                <span class="help-block">Прикрепите план</span>
+                                                <span class="help-block">
+                                                Прикрепите файлы
+                                            </span>
                                             </div><!-- /input-group -->
                                         </div>
 
@@ -205,7 +201,7 @@
                                 </c:if>
 
                                 <c:if test="${editObject.type eq 'Паркинг'}">
-                                <form id="demo-form2P" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data" action="/parking/update" method="post">
+                                <form id="demo-form2P" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data" action="/parking_update" method="post">
                                     <input type="hidden" id="idP" name="id" value="${id}"/>
 
                                     <div class="item form-group">
@@ -284,17 +280,26 @@
                                     </div>
 
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="upfileP">Прикрепить план</label>
-                                        <div class="col-md-9 col-sm-9 col-xs-12" id="upfileP">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="infoP">Описание</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <textarea class="resizable_textarea form-control" id="infoP" name="info">${editObject.info}</textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="upfilesP">Прикрепить файлы</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12" id="upfilesP">
                                             <div class="input-group">
                                                 <label class="input-group-btn">
-                                                        <span class="btn btn-primary">
-                                                            Добавить&hellip; <input type="file" name="upfile" style="display: none;">
-                                                        </span>
+                                                    <span class="btn btn-primary">
+                                                        Добавить&hellip; <input type="file" name="upfiles[]" style="display: none;" multiple>
+                                                    </span>
                                                 </label>
                                                 <input type="text" class="form-control" readonly>
                                             </div>
-                                            <span class="help-block">Прикрепите план</span>
+                                            <span class="help-block">
+                                                Прикрепите файлы
+                                            </span>
                                         </div><!-- /input-group -->
                                     </div>
 

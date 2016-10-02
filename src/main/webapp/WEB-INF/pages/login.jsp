@@ -8,8 +8,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <link rel="shortcut icon" href="../../resources/img/icon.png">
 
     <title>WEB CRM</title>
@@ -47,10 +45,10 @@
         <c:if test="${param.error == null}">
         <form class="navbar-form" role="form" action="${loginUrl}" method="POST">
             <div class="form-group" style="padding-bottom: 5px">
-                <input style="width: 170px" type="text" placeholder="Login" class="form-control" name="j_login">
+                <input style="width: 170px" type="text" placeholder="Login" class="form-control" name="j_login" required>
             </div>
             <div class="form-group" style="padding-bottom: 5px">
-                <input style="width: 170px" type="password" placeholder="Password" class="form-control" name="j_password">
+                <input style="width: 170px" type="password" placeholder="Password" class="form-control" name="j_password" required>
             </div>
             <button type="submit" class="btn btn-success btn-md btn-block" style="font-family: Calibri, sans-serif">Вход</button>
         </form>
@@ -67,12 +65,28 @@
             </form>
 
         </c:if>
+        <br>
+        <h5 style="color: #1abc9c; padding-left: 5px">Admin</h5>
+        <h5 style="color: #73879C; padding-left: 5px">login: admin</h5>
+        <h5 style="color: #73879C; padding-left: 5px">password: 1234</h5>
+        <h5 style="color: #1abc9c; padding-left: 5px; font-family: Calibri, sans-serif">Менеджер по продажам</h5>
+        <h5 style="color: #73879C; padding-left: 5px">login: manager</h5>
+        <h5 style="color: #73879C; padding-left: 5px">password: 1234</h5>
+        <h5 style="color: #1abc9c; padding-left: 5px; font-family: Calibri, sans-serif">Менеджер договорного отдела</h5>
+        <h5 style="color: #73879C; padding-left: 5px">login: cd</h5>
+        <h5 style="color: #73879C; padding-left: 5px">password: 1234</h5>
+        <h5 style="color: #1abc9c; padding-left: 5px; font-family: Calibri, sans-serif">Руководитель отдела продаж</h5>
+        <h5 style="color: #73879C; padding-left: 5px">login: head</h5>
+        <h5 style="color: #73879C; padding-left: 5px">password: 1234</h5>
+        <br>
+
         <!--/Login form-->
         <a href="#contact" style="font-family: Calibri, sans-serif">Контакты</a>
         <a target="_blank" href="https://ru-ru.facebook.com/people/%D0%9C%D0%B0%D0%BA%D1%81%D0%B8%D0%BC-%D0%91%D0%B5%D1%81%D0%B5%D0%B4%D0%B0/100001801253233"><i class="fa fa-facebook"></i></a>
-        <a target="_blank" ><i class="fa fa-linkedin"></i></a>
+        <a target="_blank" href="https://ua.linkedin.com/in/maxim-beseda-b6971012a"><i class="fa fa-linkedin"></i></a>
         <a target="_blank" href="https://plus.google.com/111374507781495347251"><i class="fa fa-google-plus"></i></a>
         <a target="_blank" href="mailto:maxim.beseda@gmail.com"><i class="fa fa-envelope"></i></a>
+
     </div>
 
     <!-- Menu button -->
@@ -152,7 +166,7 @@
             </div>
             <div class="col-lg-4 lg">
                 <h4 class="ml">LinkedIn</h4>
-                <p class="centered"><a target="_blank"><i class="fa fa-linkedin"></i></a></p>
+                <p class="centered"><a target="_blank" href="https://ua.linkedin.com/in/maxim-beseda-b6971012a"><i class="fa fa-linkedin"></i></a></p>
             </div>
             <div class="col-lg-4 dg">
                 <h4 class="ml">Google +</h4>
@@ -188,7 +202,7 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="resources/vendors/jquery/dist/jquery-1.10.2.min.js"></script>
 <script src="resources/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="resources/build/js/main.js"></script>
 <script src="resources/build/js/masonry.pkgd.min.js"></script>

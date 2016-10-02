@@ -26,14 +26,6 @@
                 </div>
                 <div class="clearfix"></div>
 
-                <!-- menu profile quick info -->
-                <div class="profile">
-                    <div class="profile_info">
-                        <h2><c:out value=" ${fullName}"/></h2>
-                    </div>
-                </div>
-                <!-- /menu profile quick info -->
-
                 <br/>
 
                 <!-- sidebar menu -->
@@ -49,7 +41,6 @@
                         <ul class="nav side-menu">
                             <li><a href=${objects}><i class="fa fa-building"></i> Объекты</a></li>
                             <li><a href=${documents}><i class="fa fa-file"></i> Документы</a></li>
-                            <li><a href=${reports}><i class="fa fa-line-chart"></i> Отчеты</a></li>
                             <security:authorize access="hasAnyRole('ROLE_ADMIN')">
                                 <ul class="nav side-menu">
                                     <li><a href=${users}><i class="fa fa-users"></i> Пользователи</a></li>
@@ -78,10 +69,6 @@
                         <div class="x_panel">
                             <div class="x_title">
                                 <h2>Список всех контактов</h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                </ul>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
@@ -91,23 +78,22 @@
                                     <div class="btn-toolbar">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-dark" data-toggle="modal"
-                                                    data-target="#modal-create">Создать
-                                            </button>
+                                                    data-target="#modal-create"><i class="fa fa-plus-circle"></i> Создать</button>
                                         </div>
                                         <div class="btn-group">
-                                            <button id="edit_contact" type="button" class="btn btn-warning">Изменить</button>
+                                            <button id="edit_contact" type="button" class="btn btn-warning"><i class="fa fa-cog"></i> Изменить</button>
                                         </div>
                                         <div class="btn-group">
-                                            <button id="delete_contact" type="button" class="btn btn-danger">Удалить</button>
+                                            <button id="delete_contact" type="button" class="btn btn-danger"><i class="fa fa-times-circle"></i> Удалить</button>
                                         </div>
                                         <div class="btn-group">
-                                            <button id="info_contact" type="button" class="btn btn-info">Инфо</button>
+                                            <button id="info_contact" type="button" class="btn btn-info"><i class="fa fa-info-circle"></i> Инфо</button>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!--Data Table-->
-                                <table id="datatable" class="table table-striped table-bordered">
+                                <table id="example" class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
                                         <th>Имя</th>
@@ -152,7 +138,7 @@
                                                 <h4 class="modal-title" id="myModalLabel">Новый контакт</h4>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="demo-form2P" data-parsley-validate class="form-horizontal form-label-left" action="/contact/add" method="post">
+                                                <form id="demo-form2P" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data" action="/contact_add" method="post">
 
                                                     <div class="item form-group">
                                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fullName">Ф.И.О. <span class="required">*</span></label>
@@ -216,6 +202,22 @@
                                                             <input type="number" class="form-control" id="partnerIdentNumber" name="partnerIdentNumber" placeholder="Идентификационный номер">
                                                         </div>
                                                     </div>
+
+                                                    <div class="item form-group">
+                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="upfiles">Прикрепить файлы</label>
+                                                        <div class="col-md-9 col-sm-9 col-xs-12" id="upfiles">
+                                                            <div class="input-group">
+                                                                <label class="input-group-btn">
+                                                                    <span class="btn btn-primary">
+                                                                        Добавить&hellip; <input type="file" name="upfiles[]" style="display: none;" multiple>
+                                                                    </span>
+                                                                </label>
+                                                                <input type="text" class="form-control" readonly>
+                                                            </div>
+                                                            <span class="help-block">Прикрепите файлы</span>
+                                                        </div><!-- /input-group -->
+                                                    </div>
+
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
                                                         <button type="submit" class="btn btn-primary">Сохранить</button>

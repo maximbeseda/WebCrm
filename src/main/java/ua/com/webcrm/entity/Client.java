@@ -1,5 +1,7 @@
 package ua.com.webcrm.entity;
 
+import ua.com.webcrm.files.UploadFile;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,9 @@ public class Client extends Contact {
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Document> documents = new ArrayList<>();
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private List<UploadFile> files = new ArrayList<>();
 
     public Client() {
     }
@@ -92,5 +97,20 @@ public class Client extends Contact {
 
     public void setDocuments(List<Document> documents) {
         this.documents = documents;
+    }
+
+    public List<UploadFile> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<UploadFile> files) {
+        this.files = files;
+    }
+
+    public void addFiles(List<UploadFile> files) {
+        for (UploadFile file : files) {
+            file.setClient(this);
+            this.files.add(file);
+        }
     }
 }

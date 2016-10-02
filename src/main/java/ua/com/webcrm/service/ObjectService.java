@@ -11,4 +11,5 @@ public interface ObjectService {
     List<ObjectOfSale> getAll();
     void delete (long id);
     ObjectOfSale getById(long id);
+    ObjectOfSale editObject(ObjectOfSale objectOfSale);
 }

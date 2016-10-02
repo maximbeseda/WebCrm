@@ -35,4 +35,10 @@ public class ObjectServiceImpl implements ObjectService {
     public ObjectOfSale getById(long id) {
         return objectRepository.findOne(id);
     }
+
+    @Override
+    @Transactional
+    public ObjectOfSale editObject(ObjectOfSale objectOfSale) {
+        return objectRepository.save(objectOfSale);
+    }
 }

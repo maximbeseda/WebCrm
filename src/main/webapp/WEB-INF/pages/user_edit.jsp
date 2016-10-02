@@ -26,14 +26,6 @@
                 </div>
                 <div class="clearfix"></div>
 
-                <!-- menu profile quick info -->
-                <div class="profile">
-                    <div class="profile_info">
-                        <h2><c:out value=" ${fullName}"/></h2>
-                    </div>
-                </div>
-                <!-- /menu profile quick info -->
-
                 <br/>
 
                 <!-- sidebar menu -->
@@ -49,7 +41,6 @@
                         <ul class="nav side-menu">
                             <li><a href=${objects}><i class="fa fa-building"></i> Объекты</a></li>
                             <li><a href=${documents}><i class="fa fa-file"></i> Документы</a></li>
-                            <li><a href=${reports}><i class="fa fa-line-chart"></i> Отчеты</a></li>
                             <security:authorize access="hasAnyRole('ROLE_ADMIN')">
                                 <ul class="nav side-menu">
                                     <li class="active"><a href=${users}><i class="fa fa-users"></i> Пользователи <span class="sr-only">(current)</span></a></li>
@@ -78,15 +69,11 @@
                         <div class="x_panel">
                             <div class="x_title">
                                 <h2>Изменить пользователя</h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                </ul>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
 
-                                <form id="demo-form2P" data-parsley-validate class="form-horizontal form-label-left" action="/user/update" method="post">
+                                <form id="demo-form2P" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data" action="/user_update" method="post">
                                     <input type="hidden" id="id" name="id" value="${id}"/>
 
                                     <div class="item form-group">
@@ -156,18 +143,33 @@
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="login">Логин <span class="required">*</span></label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" id="login" name="login" value="${editUser.login}" placeholder="Логин">
+                                            <input type="text" class="form-control" id="login" name="login" value="${editUser.login}" placeholder="Логин" required="required">
                                         </div>
                                     </div>
 
                                     <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">Пароль <span class="required">*</span></label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="password" class="form-control" id="password" name="password" value="${editUser.password}" placeholder="Пароль в формате SHA1">
+                                            <input type="password" class="form-control" id="password" name="password" value="${editUser.password}" placeholder="Вставьте хеш код желаемого пароля используя ссылку ниже" required="required">
                                             <a href="http://www.sha1-online.com/" target="_blank" style="color: #2e6da4">www.sha1-online.com</a>
                                         </div>
                                     </div>
                                     </security:authorize>
+
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="upfiles">Прикрепить файлы</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12" id="upfiles">
+                                            <div class="input-group">
+                                                <label class="input-group-btn">
+                                                    <span class="btn btn-primary">
+                                                        Добавить&hellip; <input type="file" name="upfiles[]" style="display: none;" multiple>
+                                                    </span>
+                                                </label>
+                                                <input type="text" class="form-control" readonly>
+                                            </div>
+                                            <span class="help-block">Прикрепите файлы</span>
+                                        </div><!-- /input-group -->
+                                    </div>
 
                                     <div class="modal-footer">
                                         <a href="${users}" role="button" class="btn btn-default">Отмена</a>

@@ -1,8 +1,10 @@
 package ua.com.webcrm.entity;
 
 import ua.com.webcrm.entity.enums.StatusContract;
+import ua.com.webcrm.files.UploadFile;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -44,10 +46,13 @@ public class Contract {
     private ObjectOfSale objectOfSale;
 
     @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL)
-    private List<Document> documents;
+    private List<Document> documents = new ArrayList<>();
 
     @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL)
-    private List<Invoice> invoices;
+    private List<Invoice> invoices = new ArrayList<>();
+
+    @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL)
+    private List<UploadFile> files = new ArrayList<>();
 
     public Contract() {
     }
@@ -195,12 +200,27 @@ public class Contract {
         this.invoices = invoices;
     }
 
+    public List<UploadFile> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<UploadFile> files) {
+        this.files = files;
+    }
+
     public double getAmountUAH(double amountUSD, double rate){
         if (amountUSD > 0 && rate > 0) {
             double amountUAH = amountUSD * rate;
             return Math.rint(100 * amountUAH) / 100;
         } else {
             return 0.0;
+        }
+    }
+
+    public void addFiles(List<UploadFile> files) {
+        for (UploadFile file : files) {
+            file.setContract(this);
+            this.files.add(file);
         }
     }
 }

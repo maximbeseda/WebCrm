@@ -28,11 +28,11 @@
                 <div class="clearfix"></div>
 
                 <!-- menu profile quick info -->
-                <div class="profile">
-                    <div class="profile_info">
-                        <h2><c:out value=" ${fullName}"/></h2>
-                    </div>
-                </div>
+                    <%--<div class="profile">--%>
+                    <%--<div class="profile_info">--%>
+                    <%--<h2><c:out value=" ${fullName}"/></h2>--%>
+                    <%--</div>--%>
+                    <%--</div>--%>
                 <!-- /menu profile quick info -->
 
                 <br/>
@@ -42,7 +42,8 @@
                     <div class="menu_section">
                         <br/><br/><br/>
                         <ul class="nav side-menu">
-                            <li class="active"><a href=${index}><i class="fa fa-home"></i> Главная <span class="sr-only">(current)</span></a></li>
+                            <li class="active"><a href=${index}><i class="fa fa-home"></i> Главная <span
+                                    class="sr-only">(current)</span></a></li>
                             <li><a href=${tasks}><i class="fa fa-tasks"></i> Задачи</a></li>
                             <li><a href=${contacts}><i class="fa fa-phone"></i> Контакты</a></li>
                             <li><a href=${contracts}><i class="fa fa-clone"></i> Договора</a></li>
@@ -50,7 +51,7 @@
                         <ul class="nav side-menu">
                             <li><a href=${objects}><i class="fa fa-building"></i> Объекты</a></li>
                             <li><a href=${documents}><i class="fa fa-file"></i> Документы</a></li>
-                            <li><a href=${reports}><i class="fa fa-line-chart"></i> Отчеты</a></li>
+                                <%--<li><a href=${reports}><i class="fa fa-line-chart"></i> Отчеты</a></li>--%>
                             <security:authorize access="hasAnyRole('ROLE_ADMIN')">
                                 <ul class="nav side-menu">
                                     <li><a href=${users}><i class="fa fa-users"></i> Пользователи</a></li>

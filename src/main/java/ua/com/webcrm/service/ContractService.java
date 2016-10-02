@@ -16,4 +16,5 @@ public interface ContractService {
     Contract getById(long id);
     List<Contract> getAll();
     List<Contract> getByDateAndStatus(Date date, StatusContract statusContract);
+    List<Contract> getByStatus(StatusContract statusContract);
 }

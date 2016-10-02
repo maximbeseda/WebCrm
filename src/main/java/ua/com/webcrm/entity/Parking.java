@@ -23,15 +23,15 @@ public class Parking extends ObjectOfSale {
     public Parking() {
     }
 
-    public Parking(String houseNumber, String level, Double totalSpace, Double priceUsd, StatusObj status, String parkingNumber) {
-        super(houseNumber, level, totalSpace, priceUsd, status, TYPE);
+    public Parking(String houseNumber, String level, Double totalSpace, Double priceUsd, StatusObj status, String parkingNumber, String info) {
+        super(houseNumber, level, totalSpace, priceUsd, status, TYPE, info);
         this.parkingNumber = parkingNumber;
         this.name = houseNumber + "/" + parkingNumber;
     }
 
     public Parking(String houseNumber, String level, Double totalSpace, Double priceUsd, StatusObj status, String parkingNumber,
-                   Double discount) {
-        super(houseNumber, level, totalSpace, priceUsd, status, discount, TYPE);
+                   Double discount, String info) {
+        super(houseNumber, level, totalSpace, priceUsd, status, discount, TYPE, info);
         this.parkingNumber = parkingNumber;
         this.name = houseNumber + "/" + parkingNumber;
     }

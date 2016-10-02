@@ -1,6 +1,7 @@
 package ua.com.webcrm.entity;
 
 import ua.com.webcrm.entity.enums.ManagerRole;
+import ua.com.webcrm.files.UploadFile;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -33,6 +34,9 @@ public class Manager extends Contact {
 
     @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
     private List<Task> tasks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
+    private List<UploadFile> files = new ArrayList<>();
 
 
     public Manager() {
@@ -120,5 +124,20 @@ public class Manager extends Contact {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public List<UploadFile> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<UploadFile> files) {
+        this.files = files;
+    }
+
+    public void addFiles(List<UploadFile> files) {
+        for (UploadFile file : files) {
+            file.setManager(this);
+            this.files.add(file);
+        }
     }
 }

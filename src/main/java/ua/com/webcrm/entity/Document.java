@@ -43,7 +43,7 @@ public class Document {
     private Task task;
 
     @OneToMany(mappedBy = "document", cascade = CascadeType.ALL)
-    private List<UploadFile> uploadFiles = new ArrayList<>();
+    private List<UploadFile> files = new ArrayList<>();
 
 
     public Document() {
@@ -148,18 +148,18 @@ public class Document {
         this.task = task;
     }
 
-    public List<UploadFile> getUploadFiles() {
-        return uploadFiles;
+    public List<UploadFile> getFiles() {
+        return files;
     }
 
-    public void setUploadFiles(List<UploadFile> uploadFiles) {
-        this.uploadFiles = uploadFiles;
+    public void setFiles(List<UploadFile> uploadFiles) {
+        this.files = uploadFiles;
     }
 
     public void addFiles(List<UploadFile> files) {
         for (UploadFile file : files) {
             file.setDocument(this);
-            this.uploadFiles.add(file);
+            this.files.add(file);
         }
     }
 }

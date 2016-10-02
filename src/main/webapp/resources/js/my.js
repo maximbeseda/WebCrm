@@ -2,10 +2,20 @@ $(document).ready(function () {
     $('#datatable').dataTable();
 });
 
-$(document).ready(function () {
-    var table = $('#datatable').DataTable();
+$(document).ready(function() {
+    var table = $('#example').DataTable( {
+        lengthChange: false,
+        buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+    } );
 
-    $('#datatable tbody').on('click', 'tr', function () {
+    table.buttons().container()
+        .appendTo( '#example_wrapper .col-sm-6:eq(0)' );
+} );
+
+$(document).ready(function () {
+    var table = $('#example').DataTable();
+
+    $('#example tbody').on('click', 'tr', function () {
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
         }
@@ -23,7 +33,7 @@ $(document).ready(function () {
         if (table.rows('.selected').data().length > 0) {
             if (confirm("Вы действительно хотите удалить запись?")) {
                 var data = table.$('tr.selected').data('value');
-                $.post("/user/delete", 'toDelete=' + data);
+                $.post("/user_delete", 'toDelete=' + data);
                 table.row('.selected').remove().draw(false);
             }
         }
@@ -41,7 +51,7 @@ $(document).ready(function () {
         if (table.rows('.selected').data().length > 0) {
             if (confirm("Вы действительно хотите удалить запись?")) {
                 var data = table.$('tr.selected').data('value');
-                $.post("/contact/delete", 'toDelete=' + data);
+                $.post("/contact_delete", 'toDelete=' + data);
                 table.row('.selected').remove().draw(false);
             }
         }
@@ -67,7 +77,7 @@ $(document).ready(function () {
         if (table.rows('.selected').data().length > 0) {
             if (confirm("Вы действительно хотите удалить запись?")) {
                 var data = table.$('tr.selected').data('value');
-                $.post("/contract/delete", 'toDelete=' + data);
+                $.post("/contract_delete", 'toDelete=' + data);
                 table.row('.selected').remove().draw(false);
             }
         }
@@ -93,7 +103,7 @@ $(document).ready(function () {
         if (table.rows('.selected').data().length > 0) {
             if (confirm("Вы действительно хотите удалить запись?")) {
                 var data = table.$('tr.selected').data('value');
-                $.post("/object/delete", 'toDelete=' + data);
+                $.post("/object_delete", 'toDelete=' + data);
                 table.row('.selected').remove().draw(false);
             }
         }
@@ -119,7 +129,7 @@ $(document).ready(function () {
         if (table.rows('.selected').data().length > 0) {
             if (confirm("Вы действительно хотите удалить запись?")) {
                 var data = table.$('tr.selected').data('value');
-                $.post("/document/delete", 'toDelete=' + data);
+                $.post("/document_delete", 'toDelete=' + data);
                 table.row('.selected').remove().draw(false);
             }
         }
@@ -244,7 +254,7 @@ $(function() {
         }
         else {
             var data = $(this).parents('tr').data('value');
-            $.post("/delete/document_file", 'toDelete=' + data);
+            $.post("/delete_document_file", 'toDelete=' + data);
             $(this).parents('tr').remove();
         }
     };

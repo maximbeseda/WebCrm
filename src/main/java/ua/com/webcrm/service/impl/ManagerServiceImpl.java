@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.webcrm.entity.Manager;
+import ua.com.webcrm.entity.enums.ManagerRole;
 import ua.com.webcrm.repository.ManagerRepository;
 import ua.com.webcrm.service.ManagerService;
 
@@ -58,5 +59,11 @@ public class ManagerServiceImpl implements ManagerService {
     @Transactional
     public List<Manager> getAll() {
         return managerRepository.findAll();
+    }
+
+    @Override
+    @Transactional
+    public List<Manager> getByRole(ManagerRole managerRole) {
+        return managerRepository.findOrderByRoleIsLike(managerRole);
     }
 }

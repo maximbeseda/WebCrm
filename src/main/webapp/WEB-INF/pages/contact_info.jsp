@@ -27,14 +27,6 @@
                 </div>
                 <div class="clearfix"></div>
 
-                <!-- menu profile quick info -->
-                <div class="profile">
-                    <div class="profile_info">
-                        <h2><c:out value=" ${fullName}"/></h2>
-                    </div>
-                </div>
-                <!-- /menu profile quick info -->
-
                 <br/>
 
                 <!-- sidebar menu -->
@@ -50,7 +42,6 @@
                         <ul class="nav side-menu">
                             <li><a href=${objects}><i class="fa fa-building"></i> Объекты</a></li>
                             <li><a href=${documents}><i class="fa fa-file"></i> Документы</a></li>
-                            <li><a href=${reports}><i class="fa fa-line-chart"></i> Отчеты</a></li>
                             <security:authorize access="hasAnyRole('ROLE_ADMIN')">
                                 <ul class="nav side-menu">
                                     <li><a href=${users}><i class="fa fa-users"></i> Пользователи</a></li>
@@ -79,10 +70,6 @@
                         <div class="x_panel">
                             <div class="x_title">
                                 <h2>Карточка котнакта</h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                </ul>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
@@ -162,6 +149,11 @@
 
                                                 <!-- Договора -->
                                                 <table class="table table-striped table-bordered">
+                                                    <c:if test="${getClient.contracts.size() eq 0}">
+                                                        <br>
+                                                        <p align="center">Договора отсутствуют</p>
+                                                    </c:if>
+                                                    <c:if test="${getClient.contracts.size() ne 0}">
                                                     <thead>
                                                     <tr>
                                                         <th>Тип</th>
@@ -194,6 +186,7 @@
                                                         </tr>
                                                     </c:forEach>
                                                     </tbody>
+                                                    </c:if>
                                                 </table>
                                                 <!-- /Договора -->
 
@@ -201,6 +194,11 @@
                                             <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
                                                 <!-- Документы -->
                                                 <table class="table table-striped table-bordered">
+                                                    <c:if test="${getClient.documents.size() eq 0}">
+                                                        <br>
+                                                        <p align="center">Документы отсутствуют</p>
+                                                    </c:if>
+                                                    <c:if test="${getClient.documents.size() ne 0}">
                                                     <thead>
                                                     <tr>
                                                         <th>№</th>
@@ -227,7 +225,7 @@
                                                             </c:if>
                                                             <td>${document.info}</td>
                                                             <td align="center">
-                                                                <c:forEach items="${document.uploadFiles}" var="file">
+                                                                <c:forEach items="${document.files}" var="file">
                                                                 <a class="btn btn-primary btn-xs" href="/download/inbox/${file.id}/${file.fileHash}">${file.fileName}</a>
                                                                 </c:forEach>
                                                             </td>
@@ -235,12 +233,34 @@
                                                         </tr>
                                                     </c:forEach>
                                                     </tbody>
+                                                    </c:if>
                                                 </table>
                                                 <!-- /Документы -->
                                             </div>
                                             <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
                                                 <!-- Файлы -->
-
+                                                <table class="table table-bordered table-striped">
+                                                <c:if test="${getClient.files.size() eq 0}">
+                                                    <br>
+                                                    <p align="center">Файлы отсутствуют</p>
+                                                </c:if>
+                                                <c:if test="${getClient.files.size() ne 0}">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Скачать</th>
+                                                        <th>Удалить</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <c:forEach items="${getClient.files}" var="file">
+                                                        <tr data-value="${file.id}">
+                                                            <td><a class="btn btn-primary btn-xs" href="/download/inbox/${file.id}/${file.fileHash}">${file.fileName}</a></td>
+                                                            <td><a class="btn btn-danger btn-xs confirmation" style="cursor:pointer">${file.fileName}</a></td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                    </tbody>
+                                                </c:if>
+                                                </table>
                                                 <!-- /Файлы -->
                                             </div>
                                         </div>

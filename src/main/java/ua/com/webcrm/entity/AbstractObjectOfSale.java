@@ -34,23 +34,26 @@ public abstract class AbstractObjectOfSale {
     public AbstractObjectOfSale() {
     }
 
-    public AbstractObjectOfSale(String houseNumber, String level, double totalSpace, double priceUsd, StatusObj status) {
+    public AbstractObjectOfSale(String houseNumber, String level, double totalSpace, double priceUsd, StatusObj status,
+                                String info) {
         this.houseNumber = houseNumber;
         this.level = level;
         this.totalSpace = totalSpace;
         this.priceUsd = priceUsd;
         this.status = status;
+        this.info = info;
         this.discountPriceUsd = discountPrice(priceUsd, 0.0);
     }
 
     public AbstractObjectOfSale(String houseNumber, String level, double totalSpace, double priceUsd, StatusObj status,
-                                Double discount) {
+                                Double discount, String info) {
         this.houseNumber = houseNumber;
         this.level = level;
         this.totalSpace = totalSpace;
         this.priceUsd = priceUsd;
         this.status = status;
         this.discount = discount;
+        this.info = info;
         this.discountPriceUsd = discountPrice(priceUsd, discount);
     }
 

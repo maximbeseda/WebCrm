@@ -26,14 +26,6 @@
                 </div>
                 <div class="clearfix"></div>
 
-                <!-- menu profile quick info -->
-                <div class="profile">
-                    <div class="profile_info">
-                        <h2><c:out value=" ${fullName}"/></h2>
-                    </div>
-                </div>
-                <!-- /menu profile quick info -->
-
                 <br/>
 
                 <!-- sidebar menu -->
@@ -49,7 +41,6 @@
                         <ul class="nav side-menu">
                             <li class="active"><a href=${objects}><i class="fa fa-building"></i> Объекты<span class="sr-only">(current)</span></a></li>
                             <li><a href=${documents}><i class="fa fa-file"></i> Документы</a></li>
-                            <li><a href=${reports}><i class="fa fa-line-chart"></i> Отчеты</a></li>
                             <security:authorize access="hasAnyRole('ROLE_ADMIN')">
                                 <ul class="nav side-menu">
                                     <li><a href=${users}><i class="fa fa-users"></i> Пользователи</a></li>
@@ -78,10 +69,6 @@
                         <div class="x_panel">
                             <div class="x_title">
                                 <h2>Список всех объектов</h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                </ul>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
@@ -89,30 +76,46 @@
                                 <!--Button Group-->
                                 <div class="panel">
                                     <div class="btn-toolbar">
+                                        <c:if test="${dbUser.role ne 'SALES_MANAGER'}">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-dark dropdown-toggle"
-                                                    data-toggle="dropdown">Добавить <span class="caret"></span></button>
+                                                    data-toggle="dropdown"><i class="fa fa-plus-circle"></i> Добавить <span class="caret"></span></button>
                                             <ul class="dropdown-menu" role="menu">
                                                 <li><a data-toggle="modal" data-target="#modal-create-apartment">Добавить квартиру</a></li>
                                                 <li><a data-toggle="modal" data-target="#modal-create-parking">Добавить паркинг</a></li>
                                             </ul>
                                         </div>
                                         <div class="btn-group">
-                                            <button id="edit_object" type="button" class="btn btn-warning">Изменить
+                                            <button id="edit_object" type="button" class="btn btn-warning"><i class="fa fa-cog"></i> Изменить
                                             </button>
                                         </div>
                                         <div class="btn-group">
-                                            <button id="delete_object" type="button" class="btn btn-danger">Удалить
+                                            <button id="delete_object" type="button" class="btn btn-danger"><i class="fa fa-times-circle"></i> Удалить
                                             </button>
                                         </div>
+                                        </c:if>
+                                        <c:if test="${dbUser.role eq 'SALES_MANAGER'}">
+                                            <div class="btn-group">
+                                                <button disabled type="button" class="btn btn-dark dropdown-toggle"
+                                                        data-toggle="dropdown"><i class="fa fa-plus-circle"></i> Добавить <span class="caret"></span></button>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button disabled type="button" class="btn btn-warning"><i class="fa fa-cog"></i> Изменить
+                                                </button>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button disabled type="button" class="btn btn-danger"><i class="fa fa-times-circle"></i> Удалить
+                                                </button>
+                                            </div>
+                                        </c:if>
                                         <div class="btn-group">
-                                            <button id="info_object" type="button" class="btn btn-info">Инфо</button>
+                                            <button id="info_object" type="button" class="btn btn-info"><i class="fa fa-info-circle"></i> Инфо</button>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!--Data Table-->
-                                <table id="datatable" class="table table-striped table-bordered">
+                                <table id="example" class="table table-striped table-bordered">
 
                                     <thead>
                                     <tr>
@@ -193,7 +196,7 @@
                                                 <h4 class="modal-title" id="myModalLabel">Новый объект</h4>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/apartment/add" method="post">
+                                                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data" action="/apartment_add" method="post">
 
                                                     <div class="item form-group">
                                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="houseNumber">Номер дома <span class="required">*</span></label>
@@ -255,6 +258,13 @@
                                                         </div>
                                                     </div>
 
+                                                    <div class="item form-group">
+                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="info">Описание</label>
+                                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                                            <textarea class="resizable_textarea form-control" id="info" name="info"></textarea>
+                                                        </div>
+                                                    </div>
+
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Отменить</button>
                                                         <button type="submit" class="btn btn-primary">Сохранить</button>
@@ -277,7 +287,7 @@
                                                 <h4 class="modal-title" id="myModalLabelP">Новый объект</h4>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="demo-form2P" data-parsley-validate class="form-horizontal form-label-left" action="/parking/add" method="post">
+                                                <form id="demo-form2P" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data" action="/parking_add" method="post">
 
                                                     <div class="item form-group">
                                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="houseNumberP">Номер дома <span class="required">*</span></label>
@@ -322,6 +332,13 @@
                                                                     <option value='${status}'>${status}</option>
                                                                 </c:forEach>
                                                             </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="item form-group">
+                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="infoP">Описание</label>
+                                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                                            <textarea class="resizable_textarea form-control" id="infoP" name="info"></textarea>
                                                         </div>
                                                     </div>
 

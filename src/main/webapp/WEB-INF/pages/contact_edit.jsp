@@ -26,14 +26,6 @@
                 </div>
                 <div class="clearfix"></div>
 
-                <!-- menu profile quick info -->
-                <div class="profile">
-                    <div class="profile_info">
-                        <h2><c:out value=" ${fullName}"/></h2>
-                    </div>
-                </div>
-                <!-- /menu profile quick info -->
-
                 <br/>
 
                 <!-- sidebar menu -->
@@ -49,7 +41,6 @@
                         <ul class="nav side-menu">
                             <li><a href=${objects}><i class="fa fa-building"></i> Объекты</a></li>
                             <li><a href=${documents}><i class="fa fa-file"></i> Документы</a></li>
-                            <li><a href=${reports}><i class="fa fa-line-chart"></i> Отчеты</a></li>
                             <security:authorize access="hasAnyRole('ROLE_ADMIN')">
                                 <ul class="nav side-menu">
                                     <li><a href=${users}><i class="fa fa-users"></i> Пользователи</a></li>
@@ -78,16 +69,12 @@
                         <div class="x_panel">
                             <div class="x_title">
                                 <h2>Изменить котнакт</h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                </ul>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
 
                                 <!--Modal-Edit-->
-                                <form id="demo-form2P" data-parsley-validate class="form-horizontal form-label-left" action="/contact/update" method="post">
+                                <form id="demo-form2P" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data" action="/contact_update" method="post">
                                     <input type="hidden" id="id" name="id" value="${id}"/>
 
                                     <div class="item form-group">
@@ -151,6 +138,21 @@
                                         <div class="col-md-9 col-sm-9 col-xs-12">
                                             <input type="number" class="form-control" id="partnerIdentNumber" name="partnerIdentNumber" value="${getClient.partnerIdentNumber}" placeholder="Идентификационный номер">
                                         </div>
+                                    </div>
+
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="upfiles">Прикрепить файлы</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12" id="upfiles">
+                                            <div class="input-group">
+                                                <label class="input-group-btn">
+                                                    <span class="btn btn-primary">
+                                                        Добавить&hellip; <input type="file" name="upfiles[]" style="display: none;" multiple>
+                                                    </span>
+                                                </label>
+                                                <input type="text" class="form-control" readonly>
+                                            </div>
+                                            <span class="help-block">Прикрепите файлы</span>
+                                        </div><!-- /input-group -->
                                     </div>
 
                                     <div class="modal-footer">

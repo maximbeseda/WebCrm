@@ -29,8 +29,8 @@ public class Apartment extends ObjectOfSale {
     }
 
     public Apartment(String houseNumber, String apartmentNumber, String level, double totalSpace, double priceUsd, StatusObj status,
-                     Double livingSpace, int rooms) {
-        super(houseNumber, level, totalSpace, priceUsd, status, TYPE);
+                     Double livingSpace, int rooms, String info) {
+        super(houseNumber, level, totalSpace, priceUsd, status, TYPE, info);
         this.livingSpace = livingSpace;
         this.apartmentNumber = apartmentNumber;
         this.rooms = rooms;
@@ -38,8 +38,8 @@ public class Apartment extends ObjectOfSale {
     }
 
     public Apartment(String houseNumber, String apartmentNumber, String level, double totalSpace, double priceUsd, double discount,
-                     StatusObj status, double livingSpace, int rooms) {
-        super(houseNumber, level, totalSpace, priceUsd, status, discount, TYPE);
+                     StatusObj status, double livingSpace, int rooms, String info) {
+        super(houseNumber, level, totalSpace, priceUsd, status, discount, TYPE, info);
         this.livingSpace = livingSpace;
         this.apartmentNumber = apartmentNumber;
         this.rooms = rooms;

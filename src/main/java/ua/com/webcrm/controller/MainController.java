@@ -38,7 +38,7 @@ import java.util.List;
 @Controller
 public class MainController {
 
-    String filePath = "C:/Users/Максим Беседа/Downloads/";
+    private final String FILE_PATH = "C:/Users/Максим Беседа/Downloads/";
 
     @Autowired
     private ManagerService managerService;
@@ -79,19 +79,18 @@ public class MainController {
         model.addAttribute("countApartment", countObjectThisMonth("Квартира"));
         model.addAttribute("countParking", countObjectThisMonth("Паркинг"));
 
-
         return "index";
     }
 
-    public List<Contract> getContractThisMonth(){
+    private List<Contract> getContractThisMonth(){
         Date dateFrom = new Date();
-        dateFrom.setDate(1);
+        dateFrom.setDate(0);
         List<Contract> contracts = contractService.getByDateAndStatus(dateFrom, StatusContract.SIGNED);
 
         return contracts;
     }
 
-    public int countContractThisMonth(){
+    private int countContractThisMonth(){
         int count = 0;
         for (Contract contract : getContractThisMonth()) {
             count++;
@@ -99,7 +98,7 @@ public class MainController {
         return count;
     }
 
-    public double totalAmountContractThisMonth(){
+    private double totalAmountContractThisMonth(){
         double totalAmount = 0;
         for (Contract contract : getContractThisMonth()) {
             totalAmount += contract.getAmountUSD();
@@ -107,7 +106,7 @@ public class MainController {
         return totalAmount;
     }
 
-    public int countObjectThisMonth(String type){
+    private int countObjectThisMonth(String type){
         List<Contract> contracts = getContractThisMonth();
         int count = 0;
         for (Contract contract : contracts) {
@@ -128,7 +127,7 @@ public class MainController {
         return "users";
     }
 
-    @RequestMapping(value = "/user/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/user_add", method = RequestMethod.POST)
     public String userAdd(@RequestParam String fullName,
                           @RequestParam String phone,
                           @RequestParam String email,
@@ -139,8 +138,10 @@ public class MainController {
                           @RequestParam ManagerRole role,
                           @RequestParam String login,
                           @RequestParam String password,
+                          @RequestParam("upfiles[]") MultipartFile[] files,
                           Model model) {
         Manager user = new Manager(fullName, phone, email, address, passport, identNumber, dateBirth, role, login, password);
+        user.addFiles(addFilesToEntity(files));
         managerService.addManager(user);
         model.addAttribute("allUsers", managerService.getAll());
 
@@ -169,8 +170,8 @@ public class MainController {
         return "edit_profile";
     }
 
-    @RequestMapping(value = "/user/update", method = RequestMethod.POST)
-    public String userUpdate(@RequestParam String id,
+    @RequestMapping(value = "/user_update", method = RequestMethod.POST)
+    public String userUpdate(@RequestParam long id,
                              @RequestParam String fullName,
                              @RequestParam String phone,
                              @RequestParam String email,
@@ -181,17 +182,28 @@ public class MainController {
                              @RequestParam ManagerRole role,
                              @RequestParam String login,
                              @RequestParam String password,
+                             @RequestParam("upfiles[]") MultipartFile[] files,
                              Model model) {
-        Manager user = new Manager(fullName, phone, email, address, passport, identNumber, dateBirth, role, login, password);
-        user.setId(Long.parseLong(id));
+        Manager user = managerService.getById(id);
+        user.setFullName(fullName);
+        user.setPhone(phone);
+        user.setEmail(email);
+        user.setAddress(address);
+        user.setPassport(passport);
+        user.setIdentNumber(identNumber);
+        user.setDateBirth(dateBirth);
+        user.setRole(role);
+        user.setLogin(login);
+        user.setPassword(password);
+        user.addFiles(addFilesToEntity(files));
         managerService.editManager(user);
         model.addAttribute("allUsers", managerService.getAll());
 
         return "redirect:/users";
     }
 
-    @RequestMapping(value = "/profile/update", method = RequestMethod.POST)
-    public String profileUpdate(@RequestParam String id,
+    @RequestMapping(value = "/profile_update", method = RequestMethod.POST)
+    public String profileUpdate(@RequestParam long id,
                                 @RequestParam String fullName,
                                 @RequestParam String phone,
                                 @RequestParam String email,
@@ -202,9 +214,19 @@ public class MainController {
                                 @RequestParam ManagerRole role,
                                 @RequestParam String login,
                                 @RequestParam String password,
-                                Model model) {
-        Manager user = new Manager(fullName, phone, email, address, passport, identNumber, dateBirth, role, login, password);
-        user.setId(Long.parseLong(id));
+                                @RequestParam("upfiles[]") MultipartFile[] files) {
+        Manager user = managerService.getById(id);
+        user.setFullName(fullName);
+        user.setPhone(phone);
+        user.setEmail(email);
+        user.setAddress(address);
+        user.setPassport(passport);
+        user.setIdentNumber(identNumber);
+        user.setDateBirth(dateBirth);
+        user.setRole(role);
+        user.setLogin(login);
+        user.setPassword(password);
+        user.addFiles(addFilesToEntity(files));
         managerService.editManager(user);
 
         return "redirect:/user_info";
@@ -219,7 +241,7 @@ public class MainController {
         return "user_info";
     }
 
-    @RequestMapping(value = "/user/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/user_delete", method = RequestMethod.POST)
     public ResponseEntity<Void> userDelete(@RequestParam(value = "toDelete", required = false) long toDelete, Model model) {
         if (!managerService.getById(toDelete).getRole().equals(ManagerRole.ADMIN)) {
             managerService.delete(toDelete);
@@ -248,7 +270,7 @@ public class MainController {
         return "contacts";
     }
 
-    @RequestMapping(value = "/contact/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/contact_add", method = RequestMethod.POST)
     public String contactAdd(@RequestParam String fullName,
                              @RequestParam String phone,
                              @RequestParam String email,
@@ -258,10 +280,12 @@ public class MainController {
                              @RequestParam String dateBirth,
                              @RequestParam String partnerFullName,
                              @RequestParam String partnerIdentNumber,
+                             @RequestParam("upfiles[]") MultipartFile[] files,
                              Model model) {
         Manager dbUser = getUser();
         Client client = new Client(fullName, phone, email, address, passport, identNumber, dateBirth, partnerFullName,
                 partnerIdentNumber, dbUser);
+        client.addFiles(addFilesToEntity(files));
         clientService.addClient(client);
         model.addAttribute("allClients", clientService.getAll());
 
@@ -278,8 +302,8 @@ public class MainController {
         return "contact_edit";
     }
 
-    @RequestMapping(value = "/contact/update", method = RequestMethod.POST)
-    public String contactUpdate(@RequestParam String id,
+    @RequestMapping(value = "/contact_update", method = RequestMethod.POST)
+    public String contactUpdate(@RequestParam long id,
                                 @RequestParam String fullName,
                                 @RequestParam String phone,
                                 @RequestParam String email,
@@ -289,11 +313,19 @@ public class MainController {
                                 @RequestParam String dateBirth,
                                 @RequestParam String partnerFullName,
                                 @RequestParam String partnerIdentNumber,
+                                @RequestParam("upfiles[]") MultipartFile[] files,
                                 Model model) {
-        Manager dbUser = getUser();
-        Client client = new Client(fullName, phone, email, address, passport, identNumber, dateBirth, partnerFullName,
-                partnerIdentNumber, dbUser);
-        client.setId(Long.parseLong(id));
+        Client client = clientService.getById(id);
+        client.setFullName(fullName);
+        client.setPhone(phone);
+        client.setEmail(email);
+        client.setAddress(address);
+        client.setPassport(passport);
+        client.setIdentNumber(identNumber);
+        client.setDateBirth(dateBirth);
+        client.setPartnerFullName(partnerFullName);
+        client.setPartnerIdentNumber(partnerIdentNumber);
+        client.addFiles(addFilesToEntity(files));
         clientService.editClient(client);
         model.addAttribute("allClients", clientService.getAll());
 
@@ -309,7 +341,7 @@ public class MainController {
         return "contact_info";
     }
 
-    @RequestMapping(value = "/contact/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/contact_delete", method = RequestMethod.POST)
     public ResponseEntity<Void> contactDelete(@RequestParam(value = "toDelete", required = false) long toDelete, Model model) {
         clientService.delete(toDelete);
         model.addAttribute("allClients", clientService.getAll());
@@ -321,6 +353,7 @@ public class MainController {
     public String contracts(Model model) {
         Manager dbUser = getUser();
         model.addAttribute("fullName", dbUser.getFullName());
+        model.addAttribute("dbUser", dbUser);
         model.addAttribute("allContracts", contractService.getAll());
         model.addAttribute("contractTypeList", contractTypeService.getAll());
         model.addAttribute("contractStatusList", getContractStatus());
@@ -330,7 +363,7 @@ public class MainController {
         return "contracts";
     }
 
-    @RequestMapping(value = "/contract/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/contract_add", method = RequestMethod.POST)
     public String contractAdd(@RequestParam long contractTypeId,
                               @RequestParam String status,
                               @RequestParam String number,
@@ -339,6 +372,7 @@ public class MainController {
                               @RequestParam String rateString,
                               @RequestParam long clientId,
                               @RequestParam long objectId,
+                              @RequestParam("upfiles[]") MultipartFile[] files,
                               Model model) {
         Manager dbUser = getUser();
         ContractType contractType = contractTypeService.getById(contractTypeId);
@@ -347,7 +381,9 @@ public class MainController {
         double amountUSD = getDouble(amountString);
         double rate = getDouble(rateString);
         StatusContract statusContract = getContractStatusEnum(status);
+        setObjStatusAndObjManager(objectOfSale, statusContract);
         Contract contract = new Contract(contractType, statusContract, number, date, amountUSD, rate, client, dbUser, objectOfSale);
+        contract.addFiles(addFilesToEntity(files));
         contractService.addContract(contract);
         model.addAttribute("allContracts", contractService.getAll());
 
@@ -368,7 +404,7 @@ public class MainController {
         return "contract_edit";
     }
 
-    @RequestMapping(value = "/contract/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/contract_update", method = RequestMethod.POST)
     public String contractUpdate(@RequestParam long id,
                                  @RequestParam long contractTypeId,
                                  @RequestParam String status,
@@ -378,16 +414,25 @@ public class MainController {
                                  @RequestParam String rateString,
                                  @RequestParam long clientId,
                                  @RequestParam long objectId,
+                                 @RequestParam("upfiles[]") MultipartFile[] files,
                                  Model model) {
-        Manager dbUser = getUser();
         ContractType contractType = contractTypeService.getById(contractTypeId);
         Client client = clientService.getById(clientId);
         ObjectOfSale objectOfSale = objectService.getById(objectId);
         double amountUSD = getDouble(amountString);
         double rate = getDouble(rateString);
         StatusContract statusContract = getContractStatusEnum(status);
-        Contract contract = new Contract(contractType, statusContract, number, date, amountUSD, rate, client, dbUser, objectOfSale);
-        contract.setId(id);
+        setObjectStatus(objectOfSale, statusContract);
+        Contract contract = contractService.getById(id);
+        contract.setContractType(contractType);
+        contract.setStatus(statusContract);
+        contract.setNumber(number);
+        contract.setDate(date);
+        contract.setAmountUSD(amountUSD);
+        contract.setRate(rate);
+        contract.setClient(client);
+        contract.setObjectOfSale(objectOfSale);
+        contract.addFiles(addFilesToEntity(files));
         contractService.editContract(contract);
         model.addAttribute("allContracts", contractService.getAll());
 
@@ -403,7 +448,7 @@ public class MainController {
         return "contract_info";
     }
 
-    @RequestMapping(value = "/contract/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/contract_delete", method = RequestMethod.POST)
     public ResponseEntity<Void> contractDelete(@RequestParam(value = "toDelete", required = false) long toDelete, Model model) {
         contractService.delete(toDelete);
         model.addAttribute("allContracts", contractService.getAll());
@@ -413,10 +458,16 @@ public class MainController {
 
     private List<String> getContractStatus() {
         List<String> statusList = new ArrayList<>();
-        statusList.add("На утверждение");
-        statusList.add("Утвержден");
-        statusList.add("Подписан");
-        statusList.add("Отменен");
+        Manager dbUser = getUser();
+        if (dbUser.getRole().equals(ManagerRole.SALES_MANAGER)) {
+            statusList.add("На утверждение");
+        } else {
+            statusList.add("На утверждение");
+            statusList.add("Утвержден");
+            statusList.add("Подписан");
+            statusList.add("Разорван");
+            statusList.add("Отменен");
+        }
 
         return statusList;
     }
@@ -433,6 +484,9 @@ public class MainController {
             case "Подписан":
                 statusContract = StatusContract.SIGNED;
                 break;
+            case "Разорван":
+                statusContract = StatusContract.BROKEN;
+                break;
             case "Отменен":
                 statusContract = StatusContract.CANCELED;
                 break;
@@ -441,7 +495,7 @@ public class MainController {
     }
 
 
-    public double getDouble(String value) {
+    private double getDouble(String value) {
         double result = 0.0;
         if (!value.equals("")) {
             result = Double.parseDouble(value);
@@ -449,17 +503,64 @@ public class MainController {
         return result;
     }
 
+    private void setObjStatusAndObjManager(ObjectOfSale objectOfSale, StatusContract statusContract) {
+        Manager dbUser = getUser();
+        switch (statusContract){
+            case SIGNED:
+                objectOfSale.setStatus(StatusObj.SOLD);
+                break;
+            case PREPARE:
+                objectOfSale.setStatus(StatusObj.RESERVE);
+                objectOfSale.setManager(dbUser);
+                break;
+            case APPROVED:
+                objectOfSale.setStatus(StatusObj.RESERVE);
+                break;
+            case BROKEN:
+                objectOfSale.setStatus(StatusObj.FREE);
+                objectOfSale.setManager(null);
+                break;
+            case CANCELED:
+                objectOfSale.setStatus(StatusObj.FREE);
+                objectOfSale.setManager(null);
+                break;
+        }
+    }
+
+    private void setObjectStatus(ObjectOfSale objectOfSale, StatusContract statusContract) {
+        switch (statusContract){
+            case SIGNED:
+                objectOfSale.setStatus(StatusObj.SOLD);
+                break;
+            case PREPARE:
+                objectOfSale.setStatus(StatusObj.RESERVE);
+                break;
+            case APPROVED:
+                objectOfSale.setStatus(StatusObj.RESERVE);
+                break;
+            case BROKEN:
+                objectOfSale.setStatus(StatusObj.FREE);
+                objectOfSale.setManager(null);
+                break;
+            case CANCELED:
+                objectOfSale.setStatus(StatusObj.FREE);
+                objectOfSale.setManager(null);
+                break;
+        }
+    }
+
     @RequestMapping("/objects")
     public String objects(Model model) {
         Manager dbUser = getUser();
         model.addAttribute("fullName", dbUser.getFullName());
+        model.addAttribute("dbUser", dbUser);
         model.addAttribute("allObjects", objectService.getAll());
         model.addAttribute("statusList", getObjectStatus());
 
         return "objects";
     }
 
-    @RequestMapping(value = "/apartment/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/apartment_add", method = RequestMethod.POST)
     public String objectAdd(@RequestParam String houseNumber,
                             @RequestParam String apartmentNumber,
                             @RequestParam String level,
@@ -468,25 +569,28 @@ public class MainController {
                             @RequestParam String status,
                             @RequestParam double livingSpace,
                             @RequestParam int rooms,
+                            @RequestParam String info,
                             Model model) {
         StatusObj statusObj = getObjectStatusEnum(status);
-        Apartment apartment = new Apartment(houseNumber, apartmentNumber, level, totalSpace, priceUsd, statusObj, livingSpace, rooms);
+        Apartment apartment = new Apartment(houseNumber, apartmentNumber, level, totalSpace, priceUsd, statusObj,
+                livingSpace, rooms, info);
         apartmentService.addApartment(apartment);
         model.addAttribute("allObjects", objectService.getAll());
 
         return "redirect:/objects";
     }
 
-    @RequestMapping(value = "/parking/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/parking_add", method = RequestMethod.POST)
     public String objectAdd(@RequestParam String houseNumber,
                             @RequestParam String level,
                             @RequestParam double totalSpace,
                             @RequestParam double priceUsd,
                             @RequestParam String status,
                             @RequestParam String parkingNumber,
+                            @RequestParam String info,
                             Model model) {
         StatusObj statusObj = getObjectStatusEnum(status);
-        Parking parking = new Parking(houseNumber, level, totalSpace, priceUsd, statusObj, parkingNumber);
+        Parking parking = new Parking(houseNumber, level, totalSpace, priceUsd, statusObj, parkingNumber, info);
         parkingService.addParking(parking);
         model.addAttribute("allObjects", objectService.getAll());
 
@@ -512,8 +616,8 @@ public class MainController {
         return "object_edit";
     }
 
-    @RequestMapping(value = "/apartment/update", method = RequestMethod.POST)
-    public String objectUpdate(@RequestParam String id,
+    @RequestMapping(value = "/apartment_update", method = RequestMethod.POST)
+    public String objectUpdate(@RequestParam long id,
                                @RequestParam String houseNumber,
                                @RequestParam String apartmentNumber,
                                @RequestParam String level,
@@ -523,22 +627,31 @@ public class MainController {
                                @RequestParam Double livingSpace,
                                @RequestParam int rooms,
                                @RequestParam String discount,
-                               @RequestParam("upfile") MultipartFile file,
+                               @RequestParam String info,
+                               @RequestParam("upfiles[]") MultipartFile[] file,
                                Model model) {
         StatusObj statusObj = getObjectStatusEnum(status);
         double disc = getDouble(discount);
-        Apartment apartment = new Apartment(houseNumber, apartmentNumber, level, totalSpace, priceUsd, disc, statusObj,
-                livingSpace, rooms);
-        apartment.setPlan(addFileToDocument(file));
-        apartment.setId(Long.parseLong(id));
+        Apartment apartment = apartmentService.getById(id);
+        apartment.setHouseNumber(houseNumber);
+        apartment.setApartmentNumber(apartmentNumber);
+        apartment.setLevel(level);
+        apartment.setTotalSpace(totalSpace);
+        apartment.setPriceUsd(priceUsd);
+        apartment.setDiscount(disc);
+        apartment.setStatus(statusObj);
+        apartment.setLivingSpace(livingSpace);
+        apartment.setRooms(rooms);
+        apartment.setInfo(info);
+        apartment.addFiles(addFilesToEntity(file));
         apartmentService.editApartment(apartment);
         model.addAttribute("allObjects", objectService.getAll());
 
         return "redirect:/objects";
     }
 
-    @RequestMapping(value = "/parking/update", method = RequestMethod.POST)
-    public String objectUpdate(@RequestParam String id,
+    @RequestMapping(value = "/parking_update", method = RequestMethod.POST)
+    public String objectUpdate(@RequestParam long id,
                                @RequestParam String houseNumber,
                                @RequestParam String parkingNumber,
                                @RequestParam String level,
@@ -546,13 +659,22 @@ public class MainController {
                                @RequestParam double priceUsd,
                                @RequestParam String status,
                                @RequestParam String discount,
-                               @RequestParam("upfile") MultipartFile file,
+                               @RequestParam String info,
+                               @RequestParam("upfiles[]") MultipartFile[] file,
                                Model model) {
         StatusObj statusObj = getObjectStatusEnum(status);
         double disc = getDouble(discount);
-        Parking parking = new Parking(houseNumber, level, totalSpace, priceUsd, statusObj, parkingNumber, disc);
-        parking.setPlan(addFileToDocument(file));
-        parking.setId(Long.parseLong(id));
+        Parking parking = parkingService.getById(id);
+        parking.setHouseNumber(houseNumber);
+        parking.setLevel(level);
+        parking.setTotalSpace(totalSpace);
+        parking.setPriceUsd(priceUsd);
+        parking.setStatus(statusObj);
+        parking.setParkingNumber(parkingNumber);
+        parking.setDiscount(disc);
+        parking.setInfo(info);
+        parking.addFiles(addFilesToEntity(file));
+        parking.setId(id);
         parkingService.editParking(parking);
         model.addAttribute("allObjects", objectService.getAll());
 
@@ -563,12 +685,25 @@ public class MainController {
     public String objectInfo(@RequestParam(value = "toInfo", required = false) long toInfo, Model model) {
         Manager dbUser = getUser();
         model.addAttribute("fullName", dbUser.getFullName());
+        model.addAttribute("id", toInfo);
         model.addAttribute("getObject", objectService.getById(toInfo));
 
         return "object_info";
     }
 
-    @RequestMapping(value = "/object/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/plan_add", method = RequestMethod.POST)
+    public String planAdd(@RequestParam long id,
+                          @RequestParam("upfile") MultipartFile file,
+                          Model model) {
+        ObjectOfSale objectOfSale = objectService.getById(id);
+        objectOfSale.setPlan(addFileToEntity(file));
+        objectService.editObject(objectOfSale);
+        model.addAttribute("toInfo", id);
+
+        return "redirect:/object_info";
+    }
+
+    @RequestMapping(value = "/object_delete", method = RequestMethod.POST)
     public ResponseEntity<Void> objectDelete(@RequestParam(value = "toDelete", required = false) long toDelete, Model model) {
         objectService.delete(toDelete);
         model.addAttribute("allObjects", objectService.getAll());
@@ -612,12 +747,12 @@ public class MainController {
         model.addAttribute("allDocuments", documentService.getAll());
         model.addAttribute("documentStatusList", getDocumentStatus());
         model.addAttribute("clientsList", clientService.getAll());
-        model.addAttribute("contractList", contractService.getAll());
+        model.addAttribute("contractList", contractService.getByStatus(StatusContract.SIGNED));
 
         return "documents";
     }
 
-    @RequestMapping(value = "/document/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/document_add", method = RequestMethod.POST)
     public String documentAdd(@RequestParam String name,
                               @RequestParam String status,
                               @RequestParam long clientId,
@@ -630,7 +765,7 @@ public class MainController {
         Contract contract = contractService.getById(contractId);
         StatusDoc statusDoc = getDocumentStatusEnum(status);
         Document document = new Document(name, info, statusDoc, client, dbUser, contract);
-        document.addFiles(addFilesToDocument(files));
+        document.addFiles(addFilesToEntity(files));
         documentService.addDocument(document);
         model.addAttribute("allDocuments", documentService.getAll());
 
@@ -645,12 +780,12 @@ public class MainController {
         model.addAttribute("editDocument", documentService.getById(toUpdate));
         model.addAttribute("documentStatusList", getDocumentStatus());
         model.addAttribute("clientsList", clientService.getAll());
-        model.addAttribute("contractList", contractService.getAll());
+        model.addAttribute("contractList", contractService.getByStatus(StatusContract.SIGNED));
 
         return "document_edit";
     }
 
-    @RequestMapping(value = "/document/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/document_update", method = RequestMethod.POST)
     public String documentUpdate(@RequestParam long id,
                                  @RequestParam String name,
                                  @RequestParam String status,
@@ -659,13 +794,16 @@ public class MainController {
                                  @RequestParam String info,
                                  @RequestParam("upfiles[]") MultipartFile[] files,
                                  Model model) {
-        Manager dbUser = getUser();
         Client client = clientService.getById(clientId);
         Contract contract = contractService.getById(contractId);
         StatusDoc statusDoc = getDocumentStatusEnum(status);
-        Document document = new Document(name, info, statusDoc, client, dbUser, contract);
-        document.addFiles(addFilesToDocument(files));
-        document.setId(id);
+        Document document = documentService.getById(id);
+        document.setName(name);
+        document.setInfo(info);
+        document.setStatus(statusDoc);
+        document.setClient(client);
+        document.setContract(contract);
+        document.addFiles(addFilesToEntity(files));
         documentService.editDocument(document);
         model.addAttribute("allDocuments", documentService.getAll());
 
@@ -681,7 +819,7 @@ public class MainController {
         return "document_info";
     }
 
-    @RequestMapping(value = "/document/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/document_delete", method = RequestMethod.POST)
     public ResponseEntity<Void> documentDelete(@RequestParam(value = "toDelete", required = false) long toDelete, Model model) {
         documentService.delete(toDelete);
         model.addAttribute("allDocuments", documentService.getAll());
@@ -689,17 +827,22 @@ public class MainController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/delete/document_file", method = RequestMethod.POST)
-    public ResponseEntity<Void> documentFileDelete(@RequestParam(value = "toDelete", required = false) long toDelete, Model model) {
+    @RequestMapping(value = "/delete_document_file", method = RequestMethod.POST)
+    public ResponseEntity<Void> documentFileDelete(@RequestParam(value = "toDelete", required = false) long toDelete) {
         uploadFileService.delete(toDelete);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     private List<String> getDocumentStatus() {
+        Manager dbUser = getUser();
         List<String> statusList = new ArrayList<>();
-        statusList.add("На утверждение");
-        statusList.add("Согласовано");
-        statusList.add("Отказано");
+        if (dbUser.getRole().equals(ManagerRole.ADMIN) || dbUser.getRole().equals(ManagerRole.HEAD_SALES_MANAGER)) {
+            statusList.add("На утверждение");
+            statusList.add("Согласовано");
+            statusList.add("Отказано");
+        } else {
+            statusList.add("На утверждение");
+        }
 
         return statusList;
     }
@@ -720,7 +863,7 @@ public class MainController {
         return statusDoc;
     }
 
-    private ArrayList<UploadFile> addFilesToDocument(MultipartFile[] files) {
+    private ArrayList<UploadFile> addFilesToEntity(MultipartFile[] files) {
         ArrayList<UploadFile> addFiles = new ArrayList<>();
         if (files != null && files.length > 0) {
             if (!files[0].isEmpty()) {
@@ -731,7 +874,7 @@ public class MainController {
                         MessageDigest md5 = MessageDigest.getInstance("MD5");
                         byte[] digest = md5.digest(uploadBytes);
                         String hashName = new BigInteger(1, digest).toString(16);
-                        String newPath = filePath + "inbox/" + hashName;
+                        String newPath = FILE_PATH + "inbox/" + hashName;
                         String ext = FilenameUtils.getExtension(fileName);
                         File dest = new File(newPath + "." + ext);
                         if (!dest.exists()) {
@@ -749,7 +892,7 @@ public class MainController {
         return addFiles;
     }
 
-    private UploadFile addFileToDocument(MultipartFile file) {
+    private UploadFile addFileToEntity(MultipartFile file) {
         UploadFile uploadFile = null;
         if (file != null) {
             try {
@@ -758,7 +901,7 @@ public class MainController {
                 MessageDigest md5 = MessageDigest.getInstance("MD5");
                 byte[] digest = md5.digest(uploadBytes);
                 String hashName = new BigInteger(1, digest).toString(16);
-                String newPath = filePath + "inbox/" + hashName;
+                String newPath = FILE_PATH + "inbox/" + hashName;
                 String ext = FilenameUtils.getExtension(fileName);
                 File dest = new File(newPath + "." + ext);
                 if (!dest.exists()) {
@@ -780,7 +923,7 @@ public class MainController {
         UploadFile uploadFile = uploadFileService.getById(id);
         if (!uploadFile.getFileHash().equals(fileHash)) return;
 
-        String newPath = filePath + "inbox/" + uploadFile.getFileHash() + "." + uploadFile.getFileType();
+        String newPath = FILE_PATH + "inbox/" + uploadFile.getFileHash() + "." + uploadFile.getFileType();
         File file = new File(newPath);
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/" + uploadFile.getFileType());
@@ -817,11 +960,5 @@ public class MainController {
         model.addAttribute("fullName", dbUser.getFullName());
 
         return "tasks";
-    }
-
-    @ExceptionHandler(IOException.class)
-    public String handleBadFileNameException(Exception ex, Model model) {
-        model.addAttribute("error", ex.getMessage());
-        return "error_404";
     }
 }

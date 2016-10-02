@@ -514,27 +514,66 @@
     <column id="149" parent="22" name="objectOfSale_id">
       <data-type>bigint(20)|0</data-type>
     </column>
-    <index id="150" parent="22" name="FK_84ywm69f43ijb0xgna39ccf3g">
+    <column id="150" parent="22" name="client_id">
+      <data-type>bigint(20)|0</data-type>
+    </column>
+    <column id="151" parent="22" name="contract_id">
+      <data-type>bigint(20)|0</data-type>
+    </column>
+    <column id="152" parent="22" name="manager_id">
+      <data-type>bigint(20)|0</data-type>
+    </column>
+    <index id="153" parent="22" name="FK_84ywm69f43ijb0xgna39ccf3g">
       <columns>objectOfSale_id</columns>
       <desc-columns />
     </index>
-    <index id="151" parent="22" name="FK_a3tl842t0adqnii9pa90qmixn">
+    <index id="154" parent="22" name="FK_a3tl842t0adqnii9pa90qmixn">
       <columns>document_id</columns>
       <desc-columns />
     </index>
-    <key id="152" parent="22" name="PRIMARY">
+    <index id="155" parent="22" name="FK_fskbtu7c1maxhvu8uig2ves9y">
+      <columns>manager_id</columns>
+      <desc-columns />
+    </index>
+    <index id="156" parent="22" name="FK_kggjk5gb4e4bgef2hfsm2aoxy">
+      <columns>contract_id</columns>
+      <desc-columns />
+    </index>
+    <index id="157" parent="22" name="FK_s8wyhwtfb1dvw9vxuiipfeyxr">
+      <columns>client_id</columns>
+      <desc-columns />
+    </index>
+    <key id="158" parent="22" name="PRIMARY">
       <columns>id</columns>
       <primary>1</primary>
     </key>
-    <foreign-key id="153" parent="22" name="FK_a3tl842t0adqnii9pa90qmixn">
+    <foreign-key id="159" parent="22" name="FK_a3tl842t0adqnii9pa90qmixn">
       <columns>document_id</columns>
       <ref-key>~.documents.PRIMARY</ref-key>
       <cascade-update-rule>restrict</cascade-update-rule>
       <cascade-delete-rule>restrict</cascade-delete-rule>
     </foreign-key>
-    <foreign-key id="154" parent="22" name="FK_84ywm69f43ijb0xgna39ccf3g">
+    <foreign-key id="160" parent="22" name="FK_84ywm69f43ijb0xgna39ccf3g">
       <columns>objectOfSale_id</columns>
       <ref-key>~.objects.PRIMARY</ref-key>
+      <cascade-update-rule>restrict</cascade-update-rule>
+      <cascade-delete-rule>restrict</cascade-delete-rule>
+    </foreign-key>
+    <foreign-key id="161" parent="22" name="FK_s8wyhwtfb1dvw9vxuiipfeyxr">
+      <columns>client_id</columns>
+      <ref-key>~.clients.PRIMARY</ref-key>
+      <cascade-update-rule>restrict</cascade-update-rule>
+      <cascade-delete-rule>restrict</cascade-delete-rule>
+    </foreign-key>
+    <foreign-key id="162" parent="22" name="FK_kggjk5gb4e4bgef2hfsm2aoxy">
+      <columns>contract_id</columns>
+      <ref-key>~.contracts.PRIMARY</ref-key>
+      <cascade-update-rule>restrict</cascade-update-rule>
+      <cascade-delete-rule>restrict</cascade-delete-rule>
+    </foreign-key>
+    <foreign-key id="163" parent="22" name="FK_fskbtu7c1maxhvu8uig2ves9y">
+      <columns>manager_id</columns>
+      <ref-key>~.managers.PRIMARY</ref-key>
       <cascade-update-rule>restrict</cascade-update-rule>
       <cascade-delete-rule>restrict</cascade-delete-rule>
     </foreign-key>

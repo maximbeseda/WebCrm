@@ -1,7 +1,6 @@
 package ua.com.webcrm.files;
 
-import ua.com.webcrm.entity.Document;
-import ua.com.webcrm.entity.ObjectOfSale;
+import ua.com.webcrm.entity.*;
 
 import javax.persistence.*;
 
@@ -30,6 +29,18 @@ public class UploadFile {
     @ManyToOne
     @JoinColumn(name = "objectOfSale_id")
     private ObjectOfSale objectOfSale;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    @ManyToOne
+    @JoinColumn(name = "contract_id")
+    private Contract contract;
+
+    @ManyToOne
+    @JoinColumn(name = "manager_id")
+    private Manager manager;
 
     public UploadFile() {
     }
@@ -124,5 +135,29 @@ public class UploadFile {
 
     public void setObjectOfSale(ObjectOfSale objectOfSale) {
         this.objectOfSale = objectOfSale;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Contract getContract() {
+        return contract;
+    }
+
+    public void setContract(Contract contract) {
+        this.contract = contract;
+    }
+
+    public Manager getManager() {
+        return manager;
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
     }
 }

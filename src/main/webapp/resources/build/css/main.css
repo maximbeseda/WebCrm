@@ -133,7 +133,7 @@ hr {
     text-align: left;
     width: 25px;
     font-size: 14px;
-    line-height: 40px;
+    line-height: 0px;
     margin: 25px 2px;
 }
 .menu-close {

@@ -26,14 +26,6 @@
                 </div>
                 <div class="clearfix"></div>
 
-                <!-- menu profile quick info -->
-                <div class="profile">
-                    <div class="profile_info">
-                        <h2><c:out value=" ${fullName}"/></h2>
-                    </div>
-                </div>
-                <!-- /menu profile quick info -->
-
                 <br/>
 
                 <!-- sidebar menu -->
@@ -49,7 +41,6 @@
                         <ul class="nav side-menu">
                             <li><a href=${objects}><i class="fa fa-building"></i> Объекты</a></li>
                             <li class="active"><a href=${documents}><i class="fa fa-file"></i> Документы<span class="sr-only">(current)</span></a></li>
-                            <li><a href=${reports}><i class="fa fa-line-chart"></i> Отчеты</a></li>
                             <security:authorize access="hasAnyRole('ROLE_ADMIN')">
                                 <ul class="nav side-menu">
                                     <li><a href=${users}><i class="fa fa-users"></i> Пользователи</a></li>
@@ -78,10 +69,6 @@
                         <div class="x_panel">
                             <div class="x_title">
                                 <h2>Список всех документов</h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                </ul>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
@@ -91,25 +78,25 @@
                                     <div class="btn-toolbar">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-dark" data-toggle="modal"
-                                                    data-target="#modal-create">Создать
+                                                    data-target="#modal-create"><i class="fa fa-plus-circle"></i> Создать
                                             </button>
                                         </div>
                                         <div class="btn-group">
-                                            <button id="edit_document" type="button" class="btn btn-warning">Изменить
+                                            <button id="edit_document" type="button" class="btn btn-warning"><i class="fa fa-cog"></i> Изменить
                                             </button>
                                         </div>
                                         <div class="btn-group">
-                                            <button id="delete_document" type="button" class="btn btn-danger">Удалить
+                                            <button id="delete_document" type="button" class="btn btn-danger"><i class="fa fa-times-circle"></i> Удалить
                                             </button>
                                         </div>
                                         <div class="btn-group">
-                                            <button id="info_document" type="button" class="btn btn-info">Инфо</button>
+                                            <button id="info_document" type="button" class="btn btn-info"><i class="fa fa-info-circle"></i> Инфо</button>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!--Data Table-->
-                                <table id="datatable" class="table table-striped table-bordered">
+                                <table id="example" class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
                                         <th>№</th>
@@ -163,7 +150,7 @@
                                                 <h4 class="modal-title" id="myModalLabel">Новый документ</h4>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="demo-form2P" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data" action="/document/add" method="post">
+                                                <form id="demo-form2P" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data" action="/document_add" method="post">
 
                                                     <div class="item form-group">
                                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Название документа <span class="required">*</span></label>

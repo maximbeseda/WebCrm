@@ -33,13 +33,12 @@
     <!--Data Tables CSS-->
     <link href="resources/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="resources/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="resources/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
     <!-- Select2 -->
     <link href="resources/vendors/select2/dist/css/select2.min.css" rel="stylesheet">
     <!-- FullCalendar -->
     <link href="resources/vendors/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
     <link href="resources/vendors/fullcalendar/dist/fullcalendar.print.css" rel="stylesheet" media="print">
-    <!-- Dropzone.js -->
-    <link href="resources/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
     <link href="resources/build/css/custom.min.css" rel="stylesheet">
@@ -74,70 +73,6 @@
                                 <li><a href="${logoutUrl}"><i class="fa fa-sign-out pull-right"></i>Выход</a></li>
                             </ul>
                         </li>
-
-                        <!--Почта-->
-                        <li role="presentation" class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown"
-                               aria-expanded="false">
-                                <i class="fa fa-envelope-o"></i>
-                                <span class="badge bg-green">6</span>
-                            </a>
-                            <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                                <li>
-                                    <a>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="text-center">
-                                        <a>
-                                            <strong>See All Alerts</strong>
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <!--Почта-->
                     </ul>
                 </nav>
             </div>
@@ -149,7 +84,7 @@
         <!-- footer content -->
         <footer>
             <div class="pull-right">
-                <a href="https://www.linkedin.com/">© Maxim Beseda 2016</a>
+                <a target="_blank" href="https://ua.linkedin.com/in/maxim-beseda-b6971012a">© Maxim Beseda 2016</a>
             </div>
             <div class="clearfix"></div>
         </footer>
@@ -170,6 +105,14 @@
 <!-- Data tables -->
 <script src="resources/js/jquery.dataTables.min.js"></script>
 <script src="resources/js/dataTables.bootstrap.min.js"></script>
+<script src="resources/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="resources/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="resources/vendors/jszip/dist/jszip.min.js"></script>
+<script src="resources/vendors/pdfmake/build/pdfmake.min.js"></script>
+<script src="resources/vendors/pdfmake/build/vfs_fonts.js"></script>
+<script src="resources/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="resources/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="resources/vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 <!-- Select2 -->
 <script src="resources/vendors/select2/dist/js/select2.full.min.js"></script>
 <!-- Parsley -->
@@ -181,8 +124,6 @@
 <script src="resources/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
 <script src="resources/vendors/fullcalendar/dist/lang/ru.js"></script>
 <script src="resources/js/calendar.js"></script>
-<!-- Dropzone.js -->
-<script src="resources/vendors/dropzone/dist/min/dropzone.min.js"></script>
 
 <!-- Custom Theme Scripts -->
 <script src="resources/build/js/custom.min.js"></script>

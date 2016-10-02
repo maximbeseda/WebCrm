@@ -26,14 +26,6 @@
                 </div>
                 <div class="clearfix"></div>
 
-                <!-- menu profile quick info -->
-                <div class="profile">
-                    <div class="profile_info">
-                        <h2><c:out value=" ${fullName}"/></h2>
-                    </div>
-                </div>
-                <!-- /menu profile quick info -->
-
                 <br/>
 
                 <!-- sidebar menu -->
@@ -78,10 +70,6 @@
                         <div class="x_panel">
                             <div class="x_title">
                                 <h2>Отчет по продажам</h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                </ul>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
@@ -91,15 +79,15 @@
                                     <div class="btn-toolbar">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-dark" data-toggle="modal"
-                                                    data-target="#modal-create">Создать
+                                                    data-target="#modal-create"><i class="fa fa-plus-circle"></i> Создать
                                             </button>
                                         </div>
                                         <div class="btn-group">
-                                            <button id="edit_report" type="button" class="btn btn-warning">Изменить
+                                            <button id="edit_report" type="button" class="btn btn-warning"><i class="fa fa-cog"></i> Изменить
                                             </button>
                                         </div>
                                         <div class="btn-group">
-                                            <button id="delete_report" type="button" class="btn btn-danger">Удалить
+                                            <button id="delete_report" type="button" class="btn btn-danger"><i class="fa fa-times-circle"></i> Удалить
                                             </button>
                                         </div>
                                     </div>

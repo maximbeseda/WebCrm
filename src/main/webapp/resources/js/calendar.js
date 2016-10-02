@@ -83,10 +83,10 @@ $(window).load(function() {
             end: new Date(y, m, d + 1, 22, 30),
             allDay: false
         }, {
-            title: 'Поиск новых клиентов',
-            start: new Date(y, m, 28),
-            end: new Date(y, m, 29),
-            url: 'http://google.com/'
+            title: 'Подписание договора Михайлов А.В.',
+            start: new Date(y, m, d + 1, 10, 0),
+            end: new Date(y, m, d + 1, 11, 30),
+            allDay: false
         }]
     });
 });

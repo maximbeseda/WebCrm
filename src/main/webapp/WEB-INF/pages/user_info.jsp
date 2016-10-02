@@ -26,14 +26,6 @@
                 </div>
                 <div class="clearfix"></div>
 
-                <!-- menu profile quick info -->
-                <div class="profile">
-                    <div class="profile_info">
-                        <h2><c:out value=" ${fullName}"/></h2>
-                    </div>
-                </div>
-                <!-- /menu profile quick info -->
-
                 <br/>
 
                 <!-- sidebar menu -->
@@ -49,7 +41,6 @@
                         <ul class="nav side-menu">
                             <li><a href=${objects}><i class="fa fa-building"></i> Объекты</a></li>
                             <li><a href=${documents}><i class="fa fa-file"></i> Документы</a></li>
-                            <li><a href=${reports}><i class="fa fa-line-chart"></i> Отчеты</a></li>
                             <security:authorize access="hasAnyRole('ROLE_ADMIN')">
                                 <ul class="nav side-menu">
                                     <li class="active"><a href=${users}><i class="fa fa-users"></i> Пользователи <span class="sr-only">(current)</span></a></li>
@@ -78,10 +69,6 @@
                         <div class="x_panel">
                             <div class="x_title">
                                 <h2>Профиль пользователя</h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                </ul>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
@@ -103,7 +90,7 @@
                                             <a href="mailto:${getUser.email}" target="_blank">${getUser.email}</a>
                                         </li>
                                     </ul>
-                                    <a class="btn btn-success" href="/edit_profile"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
+                                    <a class="btn btn-success" href="/edit_profile"><i class="fa fa-edit m-right-xs"></i>Изменить</a>
                                     <br />
                                 </div>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
@@ -154,6 +141,11 @@
 
                                                 <!-- Клиенты -->
                                                 <table class="table table-striped table-bordered">
+                                                    <c:if test="${getUser.clients.size() eq 0}">
+                                                        <br>
+                                                        <p align="center">Клиенты отсутствуют</p>
+                                                    </c:if>
+                                                    <c:if test="${getUser.clients.size() ne 0}">
                                                     <thead>
                                                     <tr>
                                                         <th>id</th>
@@ -173,6 +165,7 @@
                                                         </tr>
                                                     </c:forEach>
                                                     </tbody>
+                                                    </c:if>
                                                 </table>
                                                 <!-- /Клиенты -->
 
@@ -180,6 +173,11 @@
                                             <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
                                                 <!-- Документы -->
                                                 <table class="table table-striped table-bordered">
+                                                    <c:if test="${getUser.documents.size() eq 0}">
+                                                        <br>
+                                                        <p align="center">Документы отсутствуют</p>
+                                                    </c:if>
+                                                    <c:if test="${getUser.documents.size() ne 0}">
                                                     <thead>
                                                     <tr>
                                                         <th>№</th>
@@ -206,7 +204,7 @@
                                                             </c:if>
                                                             <td>${document.client.fullName}</td>
                                                             <td align="center">
-                                                                <c:forEach items="${document.uploadFiles}" var="file">
+                                                                <c:forEach items="${document.files}" var="file">
                                                                     <a class="btn btn-primary btn-xs" href="/download/inbox/${file.id}/${file.fileHash}">${file.fileName}</a>
                                                                 </c:forEach>
                                                             </td>
@@ -214,12 +212,34 @@
                                                         </tr>
                                                     </c:forEach>
                                                     </tbody>
+                                                    </c:if>
                                                 </table>
                                                 <!-- /Документы -->
                                             </div>
                                             <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
                                                 <!-- Файлы -->
-
+                                                <table class="table table-bordered table-striped">
+                                                    <c:if test="${getUser.files.size() eq 0}">
+                                                        <br>
+                                                        <p align="center">Файлы отсутствуют</p>
+                                                    </c:if>
+                                                    <c:if test="${getUser.files.size() ne 0}">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Скачать</th>
+                                                            <th>Удалить</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <c:forEach items="${getUser.files}" var="file">
+                                                            <tr data-value="${file.id}">
+                                                                <td><a class="btn btn-primary btn-xs" href="/download/inbox/${file.id}/${file.fileHash}">${file.fileName}</a></td>
+                                                                <td><a class="btn btn-danger btn-xs confirmation" style="cursor:pointer">${file.fileName}</a></td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                        </tbody>
+                                                    </c:if>
+                                                </table>
                                                 <!-- /Файлы -->
                                             </div>
                                         </div>

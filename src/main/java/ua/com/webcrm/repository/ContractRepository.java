@@ -12,4 +12,5 @@ import java.util.List;
  */
 public interface ContractRepository extends JpaRepository<Contract, Long> {
     List<Contract> findByDateAfterAndStatusIsLike(Date dateAfter, StatusContract statusIsLike);
+    List<Contract> findOrderByStatusIsLike(StatusContract statusIsLike);
 }

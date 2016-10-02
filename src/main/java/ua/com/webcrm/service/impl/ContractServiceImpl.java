@@ -55,4 +55,10 @@ public class ContractServiceImpl implements ContractService {
     public List<Contract> getByDateAndStatus(Date date, StatusContract statusContract) {
         return contractRepository.findByDateAfterAndStatusIsLike(date, statusContract);
     }
+
+    @Override
+    @Transactional
+    public List<Contract> getByStatus(StatusContract statusContract) {
+        return contractRepository.findOrderByStatusIsLike(statusContract);
+    }
 }

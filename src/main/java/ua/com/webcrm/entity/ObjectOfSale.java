@@ -23,11 +23,11 @@ public class ObjectOfSale extends AbstractObjectOfSale {
     @JoinColumn(name = "manager_id")
     private Manager manager;
 
-    @OneToMany(mappedBy="objectOfSale")
+    @OneToMany(mappedBy="objectOfSale", cascade = CascadeType.ALL)
     private List<Contract> contracts = new ArrayList<>();
 
     @OneToMany(mappedBy = "objectOfSale", cascade = CascadeType.ALL)
-    private List<UploadFile> uploadFiles = new ArrayList<>();
+    private List<UploadFile> files = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
     private UploadFile plan;
@@ -35,14 +35,14 @@ public class ObjectOfSale extends AbstractObjectOfSale {
     public ObjectOfSale() {
     }
 
-    public ObjectOfSale(String houseNumber, String level, Double totalSpace, Double priceUsd, StatusObj status, String type) {
-        super(houseNumber, level, totalSpace, priceUsd, status);
+    public ObjectOfSale(String houseNumber, String level, Double totalSpace, Double priceUsd, StatusObj status, String type, String info) {
+        super(houseNumber, level, totalSpace, priceUsd, status, info);
         this.type = type;
     }
 
     public ObjectOfSale(String houseNumber, String level, Double totalSpace, Double priceUsd, StatusObj status, Double discount,
-                        String type) {
-        super(houseNumber, level, totalSpace, priceUsd, status, discount);
+                        String type, String info) {
+        super(houseNumber, level, totalSpace, priceUsd, status, discount, info);
         this.type = type;
     }
 
@@ -74,12 +74,12 @@ public class ObjectOfSale extends AbstractObjectOfSale {
         this.contracts = contracts;
     }
 
-    public List<UploadFile> getUploadFiles() {
-        return uploadFiles;
+    public List<UploadFile> getFiles() {
+        return files;
     }
 
-    public void setUploadFiles(List<UploadFile> uploadFiles) {
-        this.uploadFiles = uploadFiles;
+    public void setFiles(List<UploadFile> uploadFiles) {
+        this.files = uploadFiles;
     }
 
     public UploadFile getPlan() {
@@ -88,5 +88,12 @@ public class ObjectOfSale extends AbstractObjectOfSale {
 
     public void setPlan(UploadFile plan) {
         this.plan = plan;
+    }
+
+    public void addFiles(List<UploadFile> files) {
+        for (UploadFile file : files) {
+            file.setObjectOfSale(this);
+            this.files.add(file);
+        }
     }
 }

@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/tasks", "/contacts", "/contracts", "/objects", "/documents", "/reports", "/analytics",
                         "/user_edit", "/contact_edit", "/object_edit", "/contract_edit", "/document_edit", "/contact_info",
-                        "/contract_info", "/document_info", "/object_info")
+                        "/contract_info", "/document_info", "/object_info", "/edit_profile")
                 .hasAnyRole("ADMIN", "SALES_MANAGER", "CONTRACT_MANAGER", "HEAD_SALES_MANAGER")
                 .antMatchers("/users").hasRole("ADMIN")
                 .and()
