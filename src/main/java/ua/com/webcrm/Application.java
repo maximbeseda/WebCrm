@@ -17,15 +17,4 @@ public class Application {
         DispatcherServlet dispatcherServlet = (DispatcherServlet)ctx.getBean("dispatcherServlet");
         dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
     }
-
-//    @Bean
-//    public CommandLineRunner demo(final ManagerService managerService, ContractTypeService contractTypeService) {
-//        return strings -> {
-//            managerService.addManager(new Manager("Максим Беседа", "0000", ManagerRole.ADMIN, "admin", "7110eda4d09e062aa5e4a390b0a572ac0d2c0220"));
-//            managerService.addManager(new Manager("Максим Беседа", "1111", ManagerRole.SALES_MANAGER, "manager", "7110eda4d09e062aa5e4a390b0a572ac0d2c0220"));
-//            contractTypeService.addContractType(new ContractType("Договор купли-продажи ЦБ"));
-//            contractTypeService.addContractType(new ContractType("Предварительный договор"));
-//            contractTypeService.addContractType(new ContractType("Основной договор"));
-//        };
-//    }
 }
