@@ -9,9 +9,7 @@ import ua.com.webcrm.service.ClientService;
 
 import java.util.List;
 
-/**
- * Created by Максим Беседа on 26.08.2016.
- */
+
 @Service
 public class ClientServiceImpl implements ClientService {
 

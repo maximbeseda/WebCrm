@@ -28,9 +28,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-/**
- * Created by Максим Беседа on 25.08.2016.
- */
+
 @Configuration
 @EnableJpaRepositories("ua.com.webcrm.repository")
 @PropertySource("classpath:config.properties")

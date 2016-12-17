@@ -6,9 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 
-/**
- * Created by Максим Беседа on 25.08.2016.
- */
+
 @Configuration
 @SpringBootApplication
 public class Application {

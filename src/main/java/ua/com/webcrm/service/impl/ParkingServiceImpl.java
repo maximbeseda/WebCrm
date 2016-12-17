@@ -9,9 +9,7 @@ import ua.com.webcrm.service.ParkingService;
 
 import java.util.List;
 
-/**
- * Created by Максим Беседа on 26.08.2016.
- */
+
 @Service
 public class ParkingServiceImpl implements ParkingService {
 

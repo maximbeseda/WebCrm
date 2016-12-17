@@ -9,9 +9,7 @@ import ua.com.webcrm.service.ApartmentService;
 
 import java.util.List;
 
-/**
- * Created by Максим Беседа on 26.08.2016.
- */
+
 @Service
 public class ApartmentServiceImpl implements ApartmentService {
 

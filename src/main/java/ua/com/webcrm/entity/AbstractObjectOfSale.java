@@ -4,9 +4,7 @@ import ua.com.webcrm.entity.enums.StatusObj;
 
 import javax.persistence.*;
 
-/**
- * Created by Максим Беседа on 24.08.2016.
- */
+
 @MappedSuperclass
 public abstract class AbstractObjectOfSale {
 

@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-/**
- * Created by Максим Беседа on 01.10.2016.
- */
+
 @ControllerAdvice
 public class ControllerAdvisor {
 

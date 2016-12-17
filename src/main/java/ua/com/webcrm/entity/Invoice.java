@@ -3,9 +3,7 @@ package ua.com.webcrm.entity;
 import javax.persistence.*;
 import java.util.Date;
 
-/**
- * Created by Максим Беседа on 24.08.2016.
- */
+
 @Entity
 @Table(name = "payments")
 public class Invoice {

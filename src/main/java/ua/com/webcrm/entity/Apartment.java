@@ -7,9 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-/**
- * Created by Максим Беседа on 24.08.2016.
- */
+
 @Entity
 @DiscriminatorValue("apartment")
 public class Apartment extends ObjectOfSale {

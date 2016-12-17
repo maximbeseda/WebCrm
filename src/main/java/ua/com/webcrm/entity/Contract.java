@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by Максим Беседа on 24.08.2016.
- */
+
 @Entity
 @Table(name = "contracts")
 public class Contract {

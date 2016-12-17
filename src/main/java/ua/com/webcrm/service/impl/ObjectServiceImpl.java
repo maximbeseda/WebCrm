@@ -9,9 +9,7 @@ import ua.com.webcrm.service.ObjectService;
 
 import java.util.List;
 
-/**
- * Created by Максим Беседа on 10.09.2016.
- */
+
 @Service
 public class ObjectServiceImpl implements ObjectService {
 

@@ -11,9 +11,7 @@ import ua.com.webcrm.service.ContractService;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by Максим Беседа on 26.08.2016.
- */
+
 @Service
 public class ContractServiceImpl implements ContractService {
 

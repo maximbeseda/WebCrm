@@ -2,9 +2,7 @@ package ua.com.webcrm.entity;
 
 import javax.persistence.*;
 
-/**
- * Created by Максим Беседа on 24.08.2016.
- */
+
 @MappedSuperclass
 public abstract class Contact {
     @Id

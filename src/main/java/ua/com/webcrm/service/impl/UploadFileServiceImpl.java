@@ -9,9 +9,7 @@ import ua.com.webcrm.service.UploadFileService;
 
 import java.util.List;
 
-/**
- * Created by Максим Беседа on 24.09.2016.
- */
+
 @Service
 public class UploadFileServiceImpl implements UploadFileService {
 

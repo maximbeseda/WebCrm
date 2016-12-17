@@ -14,9 +14,7 @@ import ua.com.webcrm.service.ManagerService;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by Максим Беседа on 25.08.2016.
- */
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired

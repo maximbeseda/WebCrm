@@ -4,9 +4,7 @@ import ua.com.webcrm.entity.*;
 
 import javax.persistence.*;
 
-/**
- * Created by Максим Беседа on 24.09.2016.
- */
+
 @Entity
 @Table(name = "files")
 public class UploadFile {

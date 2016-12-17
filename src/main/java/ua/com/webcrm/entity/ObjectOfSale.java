@@ -7,9 +7,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Максим Беседа on 28.08.2016.
- */
+
 @Entity
 @Table(name = "objects")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
